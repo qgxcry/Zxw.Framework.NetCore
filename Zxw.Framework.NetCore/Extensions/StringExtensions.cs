@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Zxw.Framework.NetCore.Extensions
@@ -12,30 +11,43 @@ namespace Zxw.Framework.NetCore.Extensions
             {
                 case "System.Boolean":
                     return ToBoolean(str);
+
                 case "System.SByte":
                     return ToSByte(str);
+
                 case "System.Byte":
                     return ToByte(str);
+
                 case "System.UInt16":
                     return ToUInt16(str);
+
                 case "System.Int16":
                     return ToInt16(str);
+
                 case "System.uInt32":
                     return ToUInt32(str);
+
                 case "System.Int32":
                     return str.ToInt32();
+
                 case "System.UInt64":
                     return ToUInt64(str);
+
                 case "System.Int64":
                     return ToInt64(str);
+
                 case "System.Single":
                     return ToSingle(str);
+
                 case "System.Double":
                     return ToDouble(str);
+
                 case "System.Decimal":
                     return ToDecimal(str);
+
                 case "System.DateTime":
                     return ToDateTime(str);
+
                 case "System.Guid":
                     return ToGuid(str);
             }
@@ -245,29 +257,44 @@ namespace Zxw.Framework.NetCore.Extensions
             return text;
         }
 
-        public static string ToPascalCase(this string original)
+        public static string ClearSpecial(this string text, int maxLength = 0)
         {
-            Regex invalidCharsRgx = new Regex("[^_a-zA-Z0-9]");
-            Regex whiteSpace = new Regex(@"(?<=\s)");
-            Regex startsWithLowerCaseChar = new Regex("^[a-z]");
-            Regex firstCharFollowedByUpperCasesOnly = new Regex("(?<=[A-Z])[A-Z0-9]+$");
-            Regex lowerCaseNextToNumber = new Regex("(?<=[0-9])[a-z]");
-            Regex upperCaseInside = new Regex("(?<=[A-Z])[A-Z]+?((?=[A-Z][a-z])|(?=[0-9]))");
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+            text = text.Trim();
 
-            // replace white spaces with undescore, then replace all invalid chars with empty string
-            var pascalCase = invalidCharsRgx.Replace(whiteSpace.Replace(original, "_"), string.Empty)
-                // split by underscores
-                .Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries)
-                // set first letter to uppercase
-                .Select(w => startsWithLowerCaseChar.Replace(w, m => m.Value.ToUpper()))
-                // replace second and all following upper case letters to lower if there is no next lower (ABC -> Abc)
-                .Select(w => firstCharFollowedByUpperCasesOnly.Replace(w, m => m.Value.ToLower()))
-                // set upper case the first lower case following a number (Ab9cd -> Ab9Cd)
-                .Select(w => lowerCaseNextToNumber.Replace(w, m => m.Value.ToUpper()))
-                // lower second and next upper case letters except the last if it follows by any lower (ABcDEf -> AbcDef)
-                .Select(w => upperCaseInside.Replace(w, m => m.Value.ToLower()));
+            text = Regex.Replace(text, "[ \\[ \\] \\^ \\-*×――(^)|'$%~!@#$…&%￥—+=<>《》!！??？:：•`·、。，；,.;\"‘’“”-]", "");
 
-            return string.Concat(pascalCase);
+            if (maxLength > 0 && text.Length > maxLength)
+                text = text.Substring(0, maxLength);
+            return text;
+        }
+
+        public static string ClearNewLine(this string text)
+        {
+            if (string.IsNullOrEmpty(text)) return string.Empty;
+            text = text.Trim();
+
+            text = Regex.Replace(text, "\r\n", "");
+            text = Regex.Replace(text, "\"", "");
+
+            return text;
+        }
+
+        public static string Extract(this string str, string strRegex)
+        {
+            var result = "";
+            var regex = new Regex(strRegex, RegexOptions.Singleline);
+            if (regex.IsMatch(str))
+            {
+                result = regex.Match(str).Groups[1].Value;
+            }
+            return result;
+        }
+
+        public static bool IsMatch(this string str, string strRegex)
+        {
+            var regex = new Regex(strRegex, RegexOptions.Singleline);
+            return regex.IsMatch(str);
         }
     }
 }

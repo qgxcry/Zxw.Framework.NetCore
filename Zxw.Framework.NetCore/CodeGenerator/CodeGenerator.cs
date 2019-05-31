@@ -32,6 +32,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
 
         private static IOptions<CodeGenerateOption> options =
             AspectCoreContainer.Resolve<IOptions<CodeGenerateOption>>();
+
         /// <summary>
         /// 静态构造函数：从IoC容器读取配置参数，如果读取失败则会抛出ArgumentNullException异常
         /// </summary>
@@ -61,7 +62,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             {
                 foreach (var type in list)
                 {
-                    var baseType = typeof(BaseModel<>).MakeGenericType(new[]{ type.BaseType?.GenericTypeArguments[0] });
+                    var baseType = typeof(BaseModel<>).MakeGenericType(new[] { type.BaseType?.GenericTypeArguments[0] });
                     if (type.IsSubclassOf(baseType))
                     {
                         GenerateSingle(type, ifExsitedCovered);
@@ -140,6 +141,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
         }
+
         /// <summary>
         /// 生成Repository层代码文件
         /// </summary>
@@ -197,8 +199,20 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         public static void GenerateAllCodesFromDatabase(bool ifExsitedCovered = false)
         {
             var dbContext = AspectCoreContainer.Resolve<IDbContextCore>();
-            if(dbContext == null)
+            if (dbContext == null)
                 throw new Exception("未能获取到数据库上下文，请先注册数据库上下文。");
+
+            #region 获取Comment枚举 格式用[枚举代码，枚举值]包裹枚举值,每行代表一个枚举类型
+
+            var columnEnums = dbContext.GetAllEnumComments().ToList<DbTableColumn>();
+            var listEnums = new Dictionary<string, string>();
+            foreach (var col in columnEnums)
+            {
+                GenerateEnum(col, listEnums);
+            }
+
+            #endregion 获取Comment枚举 格式用[枚举代码，枚举值]包裹枚举值,每行代表一个枚举类型
+
             var tables = dbContext.GetCurrentDatabaseTableList();
             if (tables != null && tables.Any())
             {
@@ -207,7 +221,10 @@ namespace Zxw.Framework.NetCore.CodeGenerator
                     if (table.Columns.Any(c => c.IsPrimaryKey))
                     {
                         var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
-                        GenerateEntity(table, ifExsitedCovered);
+                        GenerateEntity(table, listEnums, ifExsitedCovered: ifExsitedCovered);
+                        GenerateEntity(table, listEnums, ModelType.Dto, ifExsitedCovered: ifExsitedCovered);
+                        GenerateEntity(table, listEnums, ModelType.JsonModel, ifExsitedCovered: ifExsitedCovered);
+                        GenerateEntity(table, listEnums, ModelType.ViewModel, ifExsitedCovered: ifExsitedCovered);
                         GenerateIRepository(table.TableName, pkTypeName, ifExsitedCovered);
                         GenerateRepository(table.TableName, pkTypeName, ifExsitedCovered);
                         GenerateController(table.TableName, pkTypeName, ifExsitedCovered);
@@ -216,15 +233,73 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             }
         }
 
-        private static void GenerateEntity(DbTable table, bool ifExsitedCovered = false)
+        private static void GenerateEnum(DbTableColumn column, Dictionary<string, string> dic)
         {
-            var modelPath = options.Value.OutputPath + Delimiter + "Models";
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            var path = Path.GetDirectoryName(currentAssembly.Location);
+            var index = path.IndexOf("/bin");
+            index = index <= 0 ? path.IndexOf("\\bin") : index;
+            path = path.Substring(0, index);
+            var modelPath = path + Delimiter + "Enums";
             if (!Directory.Exists(modelPath))
             {
                 Directory.CreateDirectory(modelPath);
             }
+            var fullPath = modelPath + Delimiter + column.ColName + "Enum.cs";
 
-            var fullPath = modelPath + Delimiter + table.TableName + ".cs";
+            var sb = new StringBuilder();
+            var comment = column.Comment.Extract(@"\[(.*)\]");
+            var lstEnumPro = comment.Replace("\r\n", "|").Split('|');
+            foreach (var enumPro in lstEnumPro)
+            {
+                var tmp = GenerateEnumProperty(enumPro);
+                sb.AppendLine(tmp);
+            }
+
+            var content = ReadTemplate("EnumTemplate.txt");
+            content = content.Replace("{EnumNamespace}", options.Value.EnumsNamespace)
+                .Replace("{Comment}", column.Comment.Replace("\r\n", "\r\n\t/// "))
+                .Replace("{EnumName}", column.ColName + "Enum")
+                .Replace("{EnumProperties}", sb.ToString());
+            WriteAndSave(fullPath, content);
+            if (!dic.ContainsKey(column.ColName))
+            {
+                dic.Add(column.ColName, comment);
+            }
+        }
+
+        private static string GenerateEnumProperty(string item)
+        {
+            var sb = new StringBuilder();
+            var pKeyVal = item.Split(new char[] { ',', ':', '，', '：' });
+            if (pKeyVal.Count() >= 2)
+            {
+                var key = pKeyVal[1].ClearNewLine().ClearSpecial();
+                var val = pKeyVal[0].ClearNewLine().ClearSpecial();
+                sb.AppendLine("\t\t/// <summary>");
+                sb.AppendLine($"\t\t/// 名称：{key}，值：{val}");
+                sb.AppendLine("\t\t/// </summary>");
+                sb.AppendLine($"\t\t[DisplayName(\"{pKeyVal[1].ClearNewLine()}\")]");
+
+                sb.AppendLine($"\t\t{key} = {val},");
+            }
+            return sb.ToString();
+        }
+
+        private static void GenerateEntity(DbTable table, Dictionary<string, string> dic, ModelType modelType = ModelType.Model, bool ifExsitedCovered = false)
+        {
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            var path = Path.GetDirectoryName(currentAssembly.Location);
+            var index = path.IndexOf("/bin");
+            index = index <= 0 ? path.IndexOf("\\bin") : index;
+            path = path.Substring(0, index);
+            var modelPath = path + Delimiter + modelType.ToString() + "s";
+            if (!Directory.Exists(modelPath))
+            {
+                Directory.CreateDirectory(modelPath);
+            }
+            var ext = modelType != ModelType.Model ? modelType.ToString() : "";
+            var fullPath = modelPath + Delimiter + table.TableName + ext + ".cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;
 
@@ -232,11 +307,26 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var sb = new StringBuilder();
             foreach (var column in table.Columns)
             {
-                var tmp = GenerateEntityProperty(column);
+                var tmp = GenerateEntityProperty(table.TableName, dic, column, modelType);
                 sb.AppendLine(tmp);
                 sb.AppendLine();
             }
-            var content = ReadTemplate("ModelTemplate.txt");
+            foreach (var tab in table.RefTables)
+            {
+                var tmp = GenerateRefTableProperty(table.TableName, tab, modelType);
+                sb.AppendLine(tmp);
+                sb.AppendLine();
+            }
+            var content = ReadTemplate($"{modelType.ToString()}Template.txt");
+            var modelNamespace = "";
+            switch (modelType)
+            {
+                case ModelType.Model: modelNamespace = options.Value.ModelsNamespace; break;
+                case ModelType.Dto: modelNamespace = options.Value.DtosNamespace; break;
+                case ModelType.JsonModel: modelNamespace = options.Value.JsonModelsNamespace; break;
+                case ModelType.ViewModel: modelNamespace = options.Value.ViewModelsNamespace; break;
+                default: modelNamespace = options.Value.ModelsNamespace; break;
+            }
             content = content.Replace("{ModelsNamespace}", options.Value.ModelsNamespace)
                 .Replace("{Comment}", table.TableComment)
                 .Replace("{ModelName}", table.TableName)
@@ -245,55 +335,130 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             WriteAndSave(fullPath, content);
         }
 
-        private static string GenerateEntityProperty(DbTableColumn column)
+        private static string GenerateRefTableProperty(string tableName, DbTable table, ModelType modelType = ModelType.Model)
         {
             var sb = new StringBuilder();
-            if (!string.IsNullOrEmpty(column.Comments))
+            if (!string.IsNullOrEmpty(table.TableComment))
             {
+                table.TableComment = table.TableComment.Replace("\r\n", "\r\n\t\t/// ");
                 sb.AppendLine("\t\t/// <summary>");
-                sb.AppendLine("\t\t/// " + column.Comments);
+                sb.AppendLine("\t\t/// " + table.TableComment);
                 sb.AppendLine("\t\t/// </summary>");
             }
-            if (column.IsPrimaryKey)
-            {
-                sb.AppendLine("\t\t[Key]");
-                sb.AppendLine($"\t\t[Column(\"{column.ColName}\")]");
-                if (column.IsIdentity)
-                {
-                    sb.AppendLine("\t\t[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
-                }
-                sb.AppendLine($"\t\tpublic override {column.CSharpType} Id " + "{get;set;}");
-            }
-            else
-            {
-                sb.AppendLine($"\t\t[Column(\"{column.ColName}\")]");
-                if (!column.IsNullable)
-                {
-                    sb.AppendLine("\t\t[Required]");
-                }
-
-                if (column.ColumnLength.HasValue && column.ColumnLength.Value>0)
-                {
-                    sb.AppendLine($"\t\t[MaxLength({column.ColumnLength.Value})]");
-                }
-                if (column.IsIdentity)
-                {
-                    sb.AppendLine("\t\t[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
-                }
-
-                var colType = column.CSharpType;
-                if (colType.ToLower() != "string" && colType.ToLower() != "byte[]" && colType.ToLower() != "object" &&
-                    column.IsNullable)
-                {
-                    colType = colType + "?";
-                }
-
-                sb.AppendLine($"\t\tpublic {colType} {column.ColName.ToPascalCase()} " + "{get;set;}");
-            }
-
+            var ext = modelType != ModelType.Model ? modelType.ToString() : "";
+            sb.AppendLine($"\t\tpublic virtual ICollection<{table.TableName}{ext}> {table.TableName} " + "{get;set;}");
             return sb.ToString();
         }
 
+        private static string GenerateEntityProperty(string tableName, Dictionary<string, string> dic, DbTableColumn column, ModelType modelType = ModelType.Model)
+        {
+            var sb = new StringBuilder();
+            if (!string.IsNullOrEmpty(column.Comment))
+            {
+                SetSummary(column.Comment, sb);
+            }
+            switch (modelType)
+            {
+                case ModelType.Model:
+                    if (column.IsPrimaryKey)
+                    {
+                        SetKeyProperty(column, sb);
+                    }
+                    else
+                    {
+                        SetValidate(column, sb);
+                        SetProperty(dic, column, sb);
+                    }
+                    break;
+
+                case ModelType.Dto:
+                    SetProperty(dic, column, sb);
+                    break;
+
+                case ModelType.JsonModel:
+                    SetJsonProperty(column.Comment.Extract(@"【(.*)】"), sb);
+                    SetProperty(dic, column, sb);
+                    break;
+
+                case ModelType.ViewModel:
+                    SetValidate(column, sb);
+                    SetProperty(dic, column, sb);
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (!String.IsNullOrEmpty(column.RefTableName))
+            {
+                SetForeignProperty(column, sb, modelType);
+            }
+            return sb.ToString();
+        }
+
+        private static void SetSummary(string val, StringBuilder sb)
+        {
+            sb.AppendLine("\t\t/// <summary>");
+            sb.AppendLine("\t\t/// " + val.Replace("\r\n", "\r\n\t\t/// "));
+            sb.AppendLine("\t\t/// </summary>");
+        }
+
+        private static void SetKeyProperty(DbTableColumn column, StringBuilder sb)
+        {
+            sb.AppendLine("\t\t[Key]");
+            //sb.AppendLine($"\t\t[Column(\"{tableName}Id\")]");
+            if (column.IsIdentity)
+            {
+                sb.AppendLine("\t\t[DatabaseGenerated(DatabaseGeneratedOption.Identity)]");
+            }
+            sb.AppendLine($"\t\tpublic  {column.CSharpType} {column.ColName} " + "{get;set;}");
+        }
+
+        private static void SetForeignProperty(DbTableColumn column, StringBuilder sb, ModelType modelType = ModelType.Model)
+        {
+            SetSummary(column.Comment, sb);
+            if (modelType == ModelType.Model)
+                sb.AppendLine($"\t\t[ForeignKey(\"{column.ColName}\")]");
+
+            var ext = modelType != ModelType.Model ? modelType.ToString() : "";
+            sb.AppendLine($"\t\tpublic virtual {column.RefTableName}{ext} {column.RefTableName} " + "{get;set;}");
+        }
+
+        private static void SetJsonProperty(string val, StringBuilder sb)
+        {
+            sb.AppendLine($"\t\t[JsonProperty(\"{val}\")]");
+        }
+
+        private static void SetValidate(DbTableColumn column, StringBuilder sb)
+        {
+            if (!column.IsNullable)
+            {
+                sb.AppendLine("\t\t[Required]");
+            }
+
+            if (column.ColumnLength.HasValue && column.ColumnLength.Value > 0)
+            {
+                sb.AppendLine($"\t\t[MaxLength({column.ColumnLength.Value})]");
+            }
+        }
+
+        private static void SetProperty(Dictionary<string, string> dic, DbTableColumn column, StringBuilder sb)
+        {
+            var colType = column.CSharpType;
+            if (colType.ToLower() != "string" && colType.ToLower() != "byte[]" && colType.ToLower() != "object" &&
+                column.IsNullable)
+            {
+                colType = colType + "?";
+            }
+            if (colType.ToLower() != "string" && dic.ContainsKey(column.ColName) && dic.ContainsValue(column.Comment.Extract(@"\[(.*)\]")))
+            {
+                sb.AppendLine($"\t\tpublic {column.ColName}Enum? {column.ColName} " + "{get;set;}");
+            }
+            else
+            {
+                sb.AppendLine($"\t\tpublic {colType} {column.ColName} " + "{get;set;}");
+            }
+        }
 
         /// <summary>
         /// 写文件

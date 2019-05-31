@@ -1,0 +1,13 @@
+﻿using System;
+using System.ComponentModel;
+
+namespace {EnumNamespace}
+{
+	/// <summary>
+	/// {Comment}
+	/// </summary>
+	public enum {EnumName}
+	{
+{EnumProperties}
+	}
+}

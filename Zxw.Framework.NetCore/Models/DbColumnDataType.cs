@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
-using MongoDB.Driver;
 using NpgsqlTypes;
 
 namespace Zxw.Framework.NetCore.Models
@@ -36,7 +34,7 @@ namespace Zxw.Framework.NetCore.Models
 
     public class DbColumnTypeCollection
     {
-        public static IList<DbColumnDataType> DbColumnDataTypes=>new List<DbColumnDataType>()
+        public static IList<DbColumnDataType> DbColumnDataTypes => new List<DbColumnDataType>()
         {
             #region MSSQL，https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
 
@@ -56,7 +54,7 @@ namespace Zxw.Framework.NetCore.Models
             new DbColumnDataType(){ DatabaseType = DatabaseType.MSSQL, ColumnTypes = "tinyint", CSharpType ="Byte"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MSSQL, ColumnTypes = "uniqueidentifier", CSharpType ="Guid"},
 
-            #endregion
+            #endregion MSSQL，https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql-server-data-type-mappings
 
             #region PostgreSQL，http://www.npgsql.org/doc/types/basic.html
 
@@ -93,46 +91,40 @@ namespace Zxw.Framework.NetCore.Models
             new DbColumnDataType(){ DatabaseType = DatabaseType.PostgreSQL, ColumnTypes = "geometry", CSharpType ="NpgsqlTypes.PostgisGeometry"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.PostgreSQL, ColumnTypes = "record", CSharpType ="object[]"},
 
-            #endregion
+            #endregion PostgreSQL，http://www.npgsql.org/doc/types/basic.html
 
             #region MySQL，https://www.devart.com/dotconnect/mysql/docs/DataTypeMapping.html
 
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "bool,boolean,bit(1),tinyint(1)", CSharpType ="Boolean"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "tinyint", CSharpType ="SByte"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "tinyint unsigned", CSharpType ="Byte"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "smallint, year", CSharpType ="Int16"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "int, integer, smallint unsigned, mediumint", CSharpType ="Int32"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "bigint, int unsigned, integer unsigned, bit", CSharpType ="Int64"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "float", CSharpType ="Single"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "double, real", CSharpType ="Double"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "decimal, numeric, dec, fixed, bigint unsigned, float unsigned, double unsigned, serial", CSharpType ="Decimal"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "bool,boolean,bit(1),tinyint(1)", CSharpType ="bool"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "tinyint", CSharpType ="byte"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "tinyint unsigned", CSharpType ="byte"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "smallint, year", CSharpType ="int"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "int, integer, smallint unsigned, mediumint", CSharpType ="int"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "bigint, int unsigned, integer unsigned, bit", CSharpType ="long"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "float", CSharpType ="float"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "double, real", CSharpType ="double"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "decimal, numeric, dec, fixed, bigint unsigned, float unsigned, double unsigned, serial", CSharpType ="decimal"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "date, timestamp, datetime", CSharpType ="DateTime"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "datetimeoffset", CSharpType ="DateTimeOffset"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "time", CSharpType ="TimeSpan"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "char, varchar, tinytext, text, mediumtext, longtext, set, enum, nchar, national char, nvarchar, national varchar, character varying", CSharpType ="String"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "char, varchar, tinytext, text, mediumtext, longtext, set, enum, nchar, national char, nvarchar, national varchar, character varying", CSharpType ="string"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "binary, varbinary, tinyblob, blob, mediumblob, longblob, char byte", CSharpType ="Byte[]"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "geometry", CSharpType ="System.Data.Spatial.DbGeometry"},
             new DbColumnDataType(){ DatabaseType = DatabaseType.MySQL, ColumnTypes = "geometry", CSharpType ="System.Data.Spatial.DbGeography"},
 
-            #endregion
+            #endregion MySQL，https://www.devart.com/dotconnect/mysql/docs/DataTypeMapping.html
 
             #region Oracle, https://docs.oracle.com/cd/E14435_01/win.111/e10927/featUDTs.htm#CJABAEDD
 
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "BFILE,BLOB,NCLOB,CLOB,REFCURSOR", CSharpType ="Object"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "CHAR,NCHAR,VARCHAR2,NVARCHAR2,XMLTYPE,ROWID,LONG", CSharpType ="String"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Byte", CSharpType ="Byte"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "LongRaw,Raw", CSharpType ="Binary"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Decimal", CSharpType ="Decimal"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Single", CSharpType ="Single"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Double,FLOAT", CSharpType ="Double"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Int16", CSharpType ="Int16"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Int32", CSharpType ="Int32"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "Int64,IntervalYM", CSharpType ="Int64"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "DATE, TIMESTAMP, TimeStampLTZ,TimeStampTZ,TIMESTAMP(0),TIMESTAMP(1),TIMESTAMP(2),TIMESTAMP(3),TIMESTAMP(4),TIMESTAMP(5),TIMESTAMP(6),TIMESTAMP(7),TIMESTAMP(8),TIMESTAMP(9)", CSharpType ="DateTime"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "IntervalDS,INTERVAL DAY TO SECOND", CSharpType ="TimeSpan"},
-            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "NUMBER", CSharpType ="Decimal"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "BFILE,BLOB,RAW,LONG RAW", CSharpType ="Byte[]"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "CHAR, NCHAR, VARCHAR2, CLOB, NCLOB,NVARCHAR2,REF,XMLTYPE,ROWID,LONG", CSharpType ="String"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "BINARY FLOAT,BINARY DOUBLE", CSharpType ="System.Byte"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "INTERVAL YEAR TO MONTH", CSharpType ="Int32"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "FLOAT,INTEGER,NUMBER", CSharpType ="Decimal"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "DATE, TIMESTAMP, TIMESTAMP WITH LOCAL TIME ZONE,TIMESTAMP WITH TIME ZONE", CSharpType ="DateTime"},
+            new DbColumnDataType(){ DatabaseType = DatabaseType.Oracle, ColumnTypes = "INTERVAL DAY TO SECOND", CSharpType ="TimeSpan"},
 
-            #endregion
+            #endregion Oracle, https://docs.oracle.com/cd/E14435_01/win.111/e10927/featUDTs.htm#CJABAEDD
         };
     }
 }

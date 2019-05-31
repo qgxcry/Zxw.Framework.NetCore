@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using ZLHP.Enums;
+
+namespace {ModelsNamespace}
+{
+	/// <summary>
+	/// {Comment}
+	/// </summary>
+	public partial class {ModelName}Model
+	{
+{ModelProperties}
+	}
+}

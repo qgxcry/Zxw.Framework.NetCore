@@ -9,7 +9,6 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Npgsql;
-using Oracle.ManagedDataAccess.Client;
 using StackExchange.Redis.Extensions.Core.Extensions;
 using Zxw.Framework.NetCore.DbContextCore;
 using Zxw.Framework.NetCore.Models;
@@ -32,37 +31,37 @@ namespace Zxw.Framework.NetCore.Extensions
             DataAdapter da;
             if (db.IsSqlServer())
             {
-                cmd = new SqlCommand(sql, (SqlConnection) connection);
+                cmd = new SqlCommand(sql, (SqlConnection)connection);
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
                 }
 
-                da = new SqlDataAdapter((SqlCommand) cmd);
+                da = new SqlDataAdapter((SqlCommand)cmd);
             }
             else if (db.IsMySql())
             {
-                cmd = new MySqlCommand(sql, (MySqlConnection) connection);
+                cmd = new MySqlCommand(sql, (MySqlConnection)connection);
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
                 }
 
-                da = new MySqlDataAdapter((MySqlCommand) cmd);
+                da = new MySqlDataAdapter((MySqlCommand)cmd);
             }
             else if (db.IsNpgsql())
             {
-                cmd = new NpgsqlCommand(sql, (NpgsqlConnection) connection);
+                cmd = new NpgsqlCommand(sql, (NpgsqlConnection)connection);
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
                 }
 
-                da = new NpgsqlDataAdapter((NpgsqlCommand) cmd);
+                da = new NpgsqlDataAdapter((NpgsqlCommand)cmd);
             }
             else if (db.IsSqlite())
             {
-                cmd = new SqliteCommand(sql, (SqliteConnection) connection);
+                cmd = new SqliteCommand(sql, (SqliteConnection)connection);
                 if (parameters != null && parameters.Length > 0)
                 {
                     cmd.Parameters.AddRange(parameters);
@@ -72,16 +71,6 @@ namespace Zxw.Framework.NetCore.Extensions
                 cmd.Dispose();
                 connection.Close();
                 return dt;
-            }
-            else if(db.IsOracle())
-            {
-                cmd = new OracleCommand(sql,(OracleConnection)connection);
-                if (parameters != null && parameters.Length > 0)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-
-                da = new OracleDataAdapter((OracleCommand)cmd);
             }
             else
             {
@@ -126,11 +115,6 @@ namespace Zxw.Framework.NetCore.Extensions
                     " where relkind = 'r' and relname not like 'pg_%' and relname not like 'sql_%'" +
                     " order by relname";
             }
-            else if (db.IsOracle())
-            {
-                sql =
-                    "select \"a\".TABLE_NAME as \"TableName\",\"b\".COMMENTS as \"TableComment\" from USER_TABLES \"a\" JOIN user_tab_comments \"b\" on \"b\".TABLE_NAME=\"a\".TABLE_NAME";
-            }
             else
             {
                 throw new NotImplementedException("This method does not support current database yet.");
@@ -139,7 +123,7 @@ namespace Zxw.Framework.NetCore.Extensions
             return context.GetDataTable(sql);
         }
 
-        public static DataTable GetTableColumns(this IDbContextCore context, string tableName)
+        public static DataTable GetTableColumns(this IDbContextCore context, string tableName, bool isEnum = false)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             var db = context.GetDatabase();
@@ -153,22 +137,28 @@ namespace Zxw.Framework.NetCore.Extensions
                       "COLUMNPROPERTY(a.id,a.name,'PRECISION') as ColumnLength," +
                       "CONVERT(bit,(case when a.isnullable=1 then 1 else 0 end)) as IsNullable,  " +
                       "isnull(e.text,'') as DefaultValue," +
-                      "isnull(g.[value], ' ') AS Comments " +
+                      "isnull(g.[value], ' ') AS Comment " +
                       "FROM  syscolumns a left join systypes b on a.xtype=b.xusertype  inner join sysobjects d on a.id=d.id and d.xtype='U' and d.name<>'dtproperties' left join syscomments e on a.cdefault=e.id  left join sys.extended_properties g on a.id=g.major_id AND a.colid=g.minor_id left join sys.extended_properties f on d.id=f.class and f.minor_id=0 " +
                       $"where b.name is not null and d.name='{tableName}' order by a.id,a.colorder";
             }
             else if (db.IsMySql())
             {
-                sql =
-                    "select column_name as ColName, " +
-                    " column_default as DefaultValue," +
-                    " IF(extra = 'auto_increment','TRUE','FALSE') as IsIdentity," +
-                    " IF(is_nullable = 'YES','TRUE','FALSE') as IsNullable," +
-                    " DATA_TYPE as ColumnType," +
-                    " CHARACTER_MAXIMUM_LENGTH as ColumnLength," +
-                    " IF(COLUMN_KEY = 'PRI','TRUE','FALSE') as IsPrimaryKey," +
-                    " COLUMN_COMMENT as Comments " +
-                    $" from information_schema.columns where table_schema = '{db.GetDbConnection().Database}' and table_name = '{tableName}'";
+                sql = @"select col.column_name as ColName,
+                     column_default as DefaultValue,
+                     IF(extra = 'auto_increment', 'TRUE', 'FALSE') as IsIdentity,
+                     IF(is_nullable = 'YES', 'TRUE', 'FALSE') as IsNullable,
+                     data_type as ColumnType,
+                     character_maximum_length as ColumnLength,
+                     IF(column_key = 'PRI', 'TRUE', 'FALSE') as IsPrimaryKey,
+                     column_comment as Comment,
+					 key_col.referenced_table_name as RefTableName,
+					 key_col.referenced_column_name as RefColName
+                from information_schema.columns as col
+                left join information_schema.key_column_usage as key_col
+                       on col.table_schema = key_col.table_schema and col.table_name = key_col.table_name and col.column_name = key_col.column_name" +
+             $" where col.table_schema = '{db.GetDbConnection().Database}' and col.table_name = '{tableName}'"
+             + (isEnum ? " and column_comment like '%[%]%'" : "")
+             + " order by col.ordinal_position";
             }
             else if (db.IsNpgsql())
             {
@@ -180,7 +170,7 @@ namespace Zxw.Framework.NetCore.Extensions
                     "column_default as DefaultValue," +
                     "CAST((case when position('nextval' in column_default)> 0 then 1 else 0 end) as bool) as IsIdentity, " +
                     "CAST((case when b.pk_name is null then 0 else 1 end) as bool) as IsPrimaryKey," +
-                    "c.DeText as Comments" +
+                    "c.DeText as Comment" +
                     " from information_schema.columns" +
                     " left join " +
                     " (select pg_attr.attname as colname,pg_constraint.conname as pk_name from pg_constraint " +
@@ -194,23 +184,104 @@ namespace Zxw.Framework.NetCore.Extensions
                     $" where pg_attr.attnum > 0 and pg_attr.attrelid = pg_class.oid and pg_class.relname = '{tableName}') c on c.attname = information_schema.columns.column_name" +
                     $" where table_schema = 'public' and table_name = '{tableName}' order by ordinal_position asc";
             }
-            else if (db.IsOracle())
+            else
             {
-                sql = "select "
-                      + "a.DATA_LENGTH as ColumnLength,"
-                      + "a.COLUMN_NAME as ColName,"
-                      + "a.DATA_PRECISION as DataPrecision,"
-                      + "a.DATA_SCALE as DataScale,"
-                      + "a.DATA_TYPE as ColumnType,"
-                      + "decode(a.NULLABLE, 'Y', 'TRUE', 'N', 'FALSE') as IsNullable,"
-                      + "case when d.COLUMN_NAME is null then 'FALSE' else 'TRUE' end as IsPrimaryKey,"
-                      + "decode(a.IDENTITY_COLUMN, 'YES', 'TRUE', 'NO', 'FALSE') as IsIdentity,"
-                      + "b.COMMENTS as Comments "
-                      + "from user_tab_columns a "
-                      + "left join user_tab_comments b on b.TABLE_NAME = a.COLUMN_NAME "
-                      + "left join user_constraints c on c.TABLE_NAME = a.TABLE_NAME and c.CONSTRAINT_TYPE = 'P' "
-                      + "left join user_cons_columns d on d.CONSTRAINT_NAME = c.CONSTRAINT_NAME and d.COLUMN_NAME = a.COLUMN_NAME "
-                      + $"where a.Table_Name = '{tableName.ToUpper()}'";
+                throw new NotImplementedException("This method does not support current database yet.");
+            }
+
+            return context.GetDataTable(sql);
+        }
+
+        public static DataTable GetAllEnumComments(this IDbContextCore context)
+        {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            var db = context.GetDatabase();
+            var sql = string.Empty;
+            if (db.IsSqlServer())
+            {
+                sql = "SELECT a.name as ColName," +
+                      "CONVERT(bit,(case when COLUMNPROPERTY(a.id,a.name,'IsIdentity')=1 then 1 else 0 end)) as IsIdentity, " +
+                      "CONVERT(bit,(case when (SELECT count(*) FROM sysobjects  WHERE (name in (SELECT name FROM sysindexes  WHERE (id = a.id) AND (indid in  (SELECT indid FROM sysindexkeys  WHERE (id = a.id) AND (colid in  (SELECT colid FROM syscolumns WHERE (id = a.id) AND (name = a.name)))))))  AND (xtype = 'PK'))>0 then 1 else 0 end)) as IsPrimaryKey," +
+                      "b.name as ColumnType," +
+                      "COLUMNPROPERTY(a.id,a.name,'PRECISION') as ColumnLength," +
+                      "CONVERT(bit,(case when a.isnullable=1 then 1 else 0 end)) as IsNullable,  " +
+                      "isnull(e.text,'') as DefaultValue," +
+                      "isnull(g.[value], ' ') AS Comment " +
+                      "FROM  syscolumns a left join systypes b on a.xtype=b.xusertype  inner join sysobjects d on a.id=d.id and d.xtype='U' and d.name<>'dtproperties' left join syscomments e on a.cdefault=e.id  left join sys.extended_properties g on a.id=g.major_id AND a.colid=g.minor_id left join sys.extended_properties f on d.id=f.class and f.minor_id=0 " +
+                      $"where b.name is not null order by a.id,a.colorder";
+            }
+            else if (db.IsMySql())
+            {
+                sql = @"select col.column_name as ColName,
+                     column_default as DefaultValue,
+                     IF(extra = 'auto_increment', 'TRUE', 'FALSE') as IsIdentity,
+                     IF(is_nullable = 'YES', 'TRUE', 'FALSE') as IsNullable,
+                     data_type as ColumnType,
+                     character_maximum_length as ColumnLength,
+                     IF(column_key = 'PRI', 'TRUE', 'FALSE') as IsPrimaryKey,
+                     column_comment as Comment,
+					 key_col.referenced_table_name as RefTableName,
+					 key_col.referenced_column_name as RefColName
+                from information_schema.columns as col
+                left join information_schema.key_column_usage as key_col
+                       on col.table_schema = key_col.table_schema and col.table_name = key_col.table_name and col.column_name = key_col.column_name" +
+             $" where col.table_schema = '{db.GetDbConnection().Database}'"
+             + " and column_comment like '%[%]%'"
+             + " order by col.ordinal_position";
+            }
+            else if (db.IsNpgsql())
+            {
+                sql =
+                    "select column_name as ColName," +
+                    "data_type as ColumnType," +
+                    "coalesce(character_maximum_length, numeric_precision, -1) as ColumnLength," +
+                    "CAST((case is_nullable when 'NO' then 0 else 1 end) as bool) as IsNullable," +
+                    "column_default as DefaultValue," +
+                    "CAST((case when position('nextval' in column_default)> 0 then 1 else 0 end) as bool) as IsIdentity, " +
+                    "CAST((case when b.pk_name is null then 0 else 1 end) as bool) as IsPrimaryKey," +
+                    "c.DeText as Comment" +
+                    " from information_schema.columns" +
+                    " left join " +
+                    " (select pg_attr.attname as colname,pg_constraint.conname as pk_name from pg_constraint " +
+                    " inner join pg_class on pg_constraint.conrelid = pg_class.oid" +
+                    " inner join pg_attribute pg_attr on pg_attr.attrelid = pg_class.oid and  pg_attr.attnum = pg_constraint.conkey[1]" +
+                    $" inner join pg_type on pg_type.oid = pg_attr.atttypid where pg_constraint.contype = 'p') b on b.colname = information_schema.columns.column_name " +
+                    " left join " +
+                    " (select attname, description as DeText from pg_class " +
+                    " left join pg_attribute pg_attr on pg_attr.attrelid = pg_class.oid" +
+                    " left join pg_description pg_desc on pg_desc.objoid = pg_attr.attrelid and pg_desc.objsubid = pg_attr.attnum " +
+                    $" where pg_attr.attnum > 0 and pg_attr.attrelid = pg_class.oid ) c on c.attname = information_schema.columns.column_name" +
+                    $" where table_schema = 'public' order by ordinal_position asc";
+            }
+            else
+            {
+                throw new NotImplementedException("This method does not support current database yet.");
+            }
+
+            return context.GetDataTable(sql);
+        }
+
+        public static DataTable GetRefTables(this IDbContextCore context, string tableName)
+        {
+            if (context == null) throw new ArgumentNullException(nameof(context));
+            var db = context.GetDatabase();
+            var sql = string.Empty;
+            if (db.IsSqlServer())
+            {
+                throw new NotImplementedException("This method does not support current database yet.");
+            }
+            else if (db.IsMySql())
+            {
+                sql = @"select tab.table_name as TableName
+			                  ,tab.table_comment as TableComment
+                          from information_schema.`tables` as tab
+	                 left join information_schema.key_column_usage as key_col
+	                        on tab.table_schema = key_col.table_schema and tab.table_name = key_col.table_name" +
+             $" where tab.table_schema = '{db.GetDbConnection().Database}' and key_col.referenced_table_name = '{tableName}' and key_col.constraint_name != 'primary'";
+            }
+            else if (db.IsNpgsql())
+            {
+                throw new NotImplementedException("This method does not support current database yet.");
             }
             else
             {
@@ -233,16 +304,13 @@ namespace Zxw.Framework.NetCore.Extensions
             {
                 dbType = DatabaseType.PostgreSQL;
             }
-            else if(db.IsOracle())
-            {
-                dbType = DatabaseType.Oracle;
-            }
             else
             {
                 throw new NotImplementedException("This method does not support current database yet.");
             }
             tables.ForEach(item =>
             {
+                item.RefTables = context.GetRefTables(item.TableName).ToList<DbTable>();
                 item.Columns = context.GetTableColumns(item.TableName).ToList<DbTableColumn>();
                 item.Columns.ForEach(x =>
                 {

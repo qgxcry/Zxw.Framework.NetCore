@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using ZLHP.Enums;
+
+namespace {ModelsNamespace}
+{
+	/// <summary>
+	/// {Comment}
+	/// </summary>
+	public partial class {ModelName}Dto
+	{
+{ModelProperties}
+	}
+}
