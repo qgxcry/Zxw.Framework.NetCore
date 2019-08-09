@@ -253,7 +253,7 @@ namespace Zxw.Framework.UnitTest
             services.Configure<DbContextOption>(options =>
             {
                 options.ConnectionString =
-                    "initial catalog=NetCoreDemo;data source=192.168.42.103;password=xtyf;User id=xtyf;MultipleActiveResultSets=True;";
+                    "initial catalog=ZLHPDB;data source=localhost;password=123456;User id=sa;MultipleActiveResultSets=True;";
                 //options.ModelAssemblyName = "Zxw.Framework.Website.Models";
             });
             services.AddScoped<IDbContextCore, SqlServerDbContext>(); //注入EF上下文

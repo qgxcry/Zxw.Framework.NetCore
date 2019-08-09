@@ -15,7 +15,7 @@ namespace ZLHP.Enums
 	///             8，其他
 	///             ]
 	/// </summary>
-	public enum FamilyHistoryEnum
+	public enum FamilyHistoryEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：无，值：0

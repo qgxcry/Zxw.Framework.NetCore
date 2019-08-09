@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	///             2，兄、弟、姊、妹
 	///             3，其他]
 	/// </summary>
-	public enum ContactRelationshipEnum
+	public enum ContactRelationshipEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：丈夫，值：0

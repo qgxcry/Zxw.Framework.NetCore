@@ -21,7 +21,7 @@ namespace ZLHP.Enums
 	///             14，location_select
 	///             15，card_pass_check]
 	/// </summary>
-	public enum EventEnum
+	public enum EventEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：ENTER，值：0

@@ -14,7 +14,7 @@ namespace ZLHP.Enums
 	///             7，微波
 	///             8，其他]
 	/// </summary>
-	public enum PhysicalHarmfulsEnum
+	public enum PhysicalHarmfulsEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：无，值：0

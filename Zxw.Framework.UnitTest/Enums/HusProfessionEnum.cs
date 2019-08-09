@@ -15,7 +15,7 @@ namespace ZLHP.Enums
 	///             8，无职业
 	///             ]
 	/// </summary>
-	public enum HusProfessionEnum
+	public enum HusProfessionEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：国家机关党群组织企业事业单位负责人，值：0

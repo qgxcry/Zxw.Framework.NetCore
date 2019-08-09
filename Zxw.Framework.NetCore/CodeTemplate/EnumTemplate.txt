@@ -6,7 +6,7 @@ namespace {EnumNamespace}
 	/// <summary>
 	/// {Comment}
 	/// </summary>
-	public enum {EnumName}
+	public enum {EnumName}:{ValType}
 	{
 {EnumProperties}
 	}

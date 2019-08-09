@@ -15,7 +15,7 @@ namespace ZLHP.Enums
 	///             4，红
 	///             5，紫]
 	/// </summary>
-	public enum RiskLevelEnum
+	public enum RiskLevelEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：绿，值：1

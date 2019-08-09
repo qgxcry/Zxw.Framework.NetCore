@@ -10,7 +10,7 @@ namespace ZLHP.Enums
 	///             4，AB型
 	///             5，不详]
 	/// </summary>
-	public enum HusBloodABOEnum
+	public enum HusBloodABOEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：B型，值：1

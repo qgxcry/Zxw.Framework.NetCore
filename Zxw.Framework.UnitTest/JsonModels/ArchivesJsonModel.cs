@@ -43,6 +43,13 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【医院卡号】
+		/// </summary>
+		[JsonProperty("医院卡号")]
+		public string CardNo {get;set;}
+
+
+		/// <summary>
 		/// 【产检档案编号】
 		/// </summary>
 		[JsonProperty("产检档案编号")]
@@ -58,7 +65,7 @@ namespace ZLHP.Site.Models
 		///             
 		/// </summary>
 		[JsonProperty("孕检状态")]
-		public StatusEnum? Status {get;set;}
+		public ArchiveStatusEnum? ArchiveStatus {get;set;}
 
 
 		/// <summary>
@@ -710,6 +717,24 @@ namespace ZLHP.Site.Models
 		/// 【产检记录】
 		/// </summary>
 		public virtual ICollection<ArchiveRecordsJsonModel> ArchiveRecords {get;set;}
+
+
+		/// <summary>
+		/// 【体重管理】
+		/// </summary>
+		public virtual ICollection<BodyWeightRecordsJsonModel> BodyWeightRecords {get;set;}
+
+
+		/// <summary>
+		/// 【胎动记录】
+		/// </summary>
+		public virtual ICollection<FetalRecordsJsonModel> FetalRecords {get;set;}
+
+
+		/// <summary>
+		/// 【高危因素记录】
+		/// </summary>
+		public virtual ICollection<HighRiskRecordsJsonModel> HighRiskRecords {get;set;}
 
 
 

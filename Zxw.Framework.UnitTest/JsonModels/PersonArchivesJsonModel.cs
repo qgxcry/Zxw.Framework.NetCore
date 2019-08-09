@@ -8,7 +8,7 @@ namespace ZLHP.Site.Models
 	/// <summary>
 	/// 【个人档案】
 	/// </summary>
-	public partial class PersonArchivesModel
+	public partial class personarchivesModel
 	{
 		/// <summary>
 		/// 【个人档案ID】
@@ -687,12 +687,6 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【产检档案】
-		/// </summary>
-		public virtual ICollection<ArchivesJsonModel> Archives {get;set;}
-
-
-		/// <summary>
 		/// 【检查前情况】
 		/// </summary>
 		public virtual ICollection<ExaminationInfoJsonModel> ExaminationInfo {get;set;}
@@ -708,6 +702,12 @@ namespace ZLHP.Site.Models
 		/// 【月经史】
 		/// </summary>
 		public virtual ICollection<MenstrualHistoriesJsonModel> MenstrualHistories {get;set;}
+
+
+		/// <summary>
+		/// 【产检档案】
+		/// </summary>
+		public virtual ICollection<ArchivesJsonModel> Archives {get;set;}
 
 
 

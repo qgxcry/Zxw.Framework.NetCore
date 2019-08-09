@@ -10,7 +10,7 @@ namespace ZLHP.Enums
 	///             4，离婚
 	///             5，未说明的婚姻状况]
 	/// </summary>
-	public enum MaritalStatusEnum
+	public enum MaritalStatusEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：未婚，值：1

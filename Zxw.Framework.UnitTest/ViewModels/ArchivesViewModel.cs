@@ -42,6 +42,13 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【医院卡号】
+		/// </summary>
+		[MaxLength(50)]
+		public string CardNo {get;set;}
+
+
+		/// <summary>
 		/// 【产检档案编号】
 		/// </summary>
 		[MaxLength(50)]
@@ -56,7 +63,7 @@ namespace ZLHP.Site.Models
 		///             ]
 		///             
 		/// </summary>
-		public StatusEnum? Status {get;set;}
+		public ArchiveStatusEnum? ArchiveStatus {get;set;}
 
 
 		/// <summary>
@@ -674,6 +681,24 @@ namespace ZLHP.Site.Models
 		/// 【产检记录】
 		/// </summary>
 		public virtual ICollection<ArchiveRecordsViewModel> ArchiveRecords {get;set;}
+
+
+		/// <summary>
+		/// 【体重管理】
+		/// </summary>
+		public virtual ICollection<BodyWeightRecordsViewModel> BodyWeightRecords {get;set;}
+
+
+		/// <summary>
+		/// 【胎动记录】
+		/// </summary>
+		public virtual ICollection<FetalRecordsViewModel> FetalRecords {get;set;}
+
+
+		/// <summary>
+		/// 【高危因素记录】
+		/// </summary>
+		public virtual ICollection<HighRiskRecordsViewModel> HighRiskRecords {get;set;}
 
 
 

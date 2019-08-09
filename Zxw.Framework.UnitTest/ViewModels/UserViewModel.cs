@@ -103,7 +103,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【用户头像】
 		/// </summary>
-		[MaxLength(50)]
+		[MaxLength(200)]
 		public string UserImage {get;set;}
 
 

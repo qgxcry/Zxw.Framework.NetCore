@@ -8,7 +8,7 @@ using ZLHP.Enums;
 namespace ZLHP.Site.Models
 {
 	/// <summary>
-	/// 【过敏源】
+	/// 
 	/// </summary>
 	[Table("Allergens")]
 	public partial class Allergens:BaseEntity
@@ -63,12 +63,6 @@ namespace ZLHP.Site.Models
 		/// 【是否启用】
 		/// </summary>
 		public byte? IsEnabled {get;set;}
-
-
-		/// <summary>
-		/// 【个人过敏源】
-		/// </summary>
-		public virtual ICollection<PersonAllergens> PersonAllergens {get;set;}
 
 
 

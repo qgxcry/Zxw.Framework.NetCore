@@ -81,10 +81,73 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【医院参数ID】
+		/// 【二维码参数】
 		/// </summary>
-		[JsonProperty("医院参数ID")]
+		[JsonProperty("二维码参数")]
 		public int? SceneId {get;set;}
+
+
+		/// <summary>
+		/// 【接口授权秘钥】
+		/// </summary>
+		[JsonProperty("接口授权秘钥")]
+		public string AppSecret {get;set;}
+
+
+		/// <summary>
+		/// 【是否提供接口】
+		/// </summary>
+		[JsonProperty("是否提供接口")]
+		public byte? IsServer {get;set;}
+
+
+		/// <summary>
+		/// 【服务器秘钥】
+		/// </summary>
+		[JsonProperty("服务器秘钥")]
+		public string ServerSercret {get;set;}
+
+
+		/// <summary>
+		/// 【服务器地址】
+		/// </summary>
+		[JsonProperty("服务器地址")]
+		public string ServerAddress {get;set;}
+
+
+		/// <summary>
+		/// 【His服务商类型】
+		/// </summary>
+		[JsonProperty("His服务商类型")]
+		public string HisCompany {get;set;}
+
+
+		/// <summary>
+		/// 【His接口地址】
+		/// </summary>
+		[JsonProperty("His接口地址")]
+		public string HisAddress {get;set;}
+
+
+		/// <summary>
+		/// 【His秘钥】
+		/// </summary>
+		[JsonProperty("His秘钥")]
+		public string HisSecret {get;set;}
+
+
+		/// <summary>
+		/// 【His服务器名称】
+		/// </summary>
+		[JsonProperty("His服务器名称")]
+		public string HisServerName {get;set;}
+
+
+		/// <summary>
+		/// 【微信子商户号】
+		/// </summary>
+		[JsonProperty("微信子商户号")]
+		public string WxSubMchid {get;set;}
 
 
 		/// <summary>
@@ -99,6 +162,20 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("医院地址")]
 		public string Address {get;set;}
+
+
+		/// <summary>
+		/// 【经度】
+		/// </summary>
+		[JsonProperty("经度")]
+		public decimal? Longitude {get;set;}
+
+
+		/// <summary>
+		/// 【纬度】
+		/// </summary>
+		[JsonProperty("纬度")]
+		public decimal? Latitude {get;set;}
 
 
 		/// <summary>
@@ -127,27 +204,6 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("是否启用")]
 		public byte? IsEnabled {get;set;}
-
-
-		/// <summary>
-		/// 【是否提供接口】
-		/// </summary>
-		[JsonProperty("是否提供接口")]
-		public byte? IsServer {get;set;}
-
-
-		/// <summary>
-		/// 【服务器秘钥】
-		/// </summary>
-		[JsonProperty("服务器秘钥")]
-		public string ServerSercret {get;set;}
-
-
-		/// <summary>
-		/// 【服务器地址】
-		/// </summary>
-		[JsonProperty("服务器地址")]
-		public string ServerAddress {get;set;}
 
 
 		/// <summary>

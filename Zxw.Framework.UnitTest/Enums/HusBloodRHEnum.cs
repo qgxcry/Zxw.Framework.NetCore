@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             2，RH阴性
 	///             3，不详]
 	/// </summary>
-	public enum HusBloodRHEnum
+	public enum HusBloodRHEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：RH阳性，值：1

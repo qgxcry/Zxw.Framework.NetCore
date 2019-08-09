@@ -12,7 +12,7 @@ namespace ZLHP.Enums
 	///             5，其他
 	///             ]
 	/// </summary>
-	public enum IndustrialPoisonsEnum
+	public enum IndustrialPoisonsEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：无，值：0

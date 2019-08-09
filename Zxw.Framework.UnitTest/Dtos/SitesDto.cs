@@ -70,9 +70,63 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【医院参数ID】
+		/// 【二维码参数】
 		/// </summary>
 		public int? SceneId {get;set;}
+
+
+		/// <summary>
+		/// 【接口授权秘钥】
+		/// </summary>
+		public string AppSecret {get;set;}
+
+
+		/// <summary>
+		/// 【是否提供接口】
+		/// </summary>
+		public byte? IsServer {get;set;}
+
+
+		/// <summary>
+		/// 【服务器秘钥】
+		/// </summary>
+		public string ServerSercret {get;set;}
+
+
+		/// <summary>
+		/// 【服务器地址】
+		/// </summary>
+		public string ServerAddress {get;set;}
+
+
+		/// <summary>
+		/// 【His服务商类型】
+		/// </summary>
+		public string HisCompany {get;set;}
+
+
+		/// <summary>
+		/// 【His接口地址】
+		/// </summary>
+		public string HisAddress {get;set;}
+
+
+		/// <summary>
+		/// 【His秘钥】
+		/// </summary>
+		public string HisSecret {get;set;}
+
+
+		/// <summary>
+		/// 【His服务器名称】
+		/// </summary>
+		public string HisServerName {get;set;}
+
+
+		/// <summary>
+		/// 【微信子商户号】
+		/// </summary>
+		public string WxSubMchid {get;set;}
 
 
 		/// <summary>
@@ -85,6 +139,18 @@ namespace ZLHP.Site.Models
 		/// 【医院地址】
 		/// </summary>
 		public string Address {get;set;}
+
+
+		/// <summary>
+		/// 【经度】
+		/// </summary>
+		public decimal? Longitude {get;set;}
+
+
+		/// <summary>
+		/// 【纬度】
+		/// </summary>
+		public decimal? Latitude {get;set;}
 
 
 		/// <summary>
@@ -109,24 +175,6 @@ namespace ZLHP.Site.Models
 		/// 【是否启用】
 		/// </summary>
 		public byte? IsEnabled {get;set;}
-
-
-		/// <summary>
-		/// 【是否提供接口】
-		/// </summary>
-		public byte? IsServer {get;set;}
-
-
-		/// <summary>
-		/// 【服务器秘钥】
-		/// </summary>
-		public string ServerSercret {get;set;}
-
-
-		/// <summary>
-		/// 【服务器地址】
-		/// </summary>
-		public string ServerAddress {get;set;}
 
 
 		/// <summary>

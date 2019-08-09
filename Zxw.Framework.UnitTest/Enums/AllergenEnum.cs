@@ -20,7 +20,7 @@ namespace ZLHP.Enums
 	///             110，花粉
 	///             999，其他]
 	/// </summary>
-	public enum AllergenEnum
+	public enum AllergenEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：镇静麻醉剂，值：10

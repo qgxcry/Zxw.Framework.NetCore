@@ -55,7 +55,7 @@ namespace ZLHP.Site.Models
 		///             1，成功]
 		/// </summary>
 		[JsonProperty("状态")]
-		public byte? Status {get;set;}
+		public StatusEnum? Status {get;set;}
 
 
 		/// <summary>

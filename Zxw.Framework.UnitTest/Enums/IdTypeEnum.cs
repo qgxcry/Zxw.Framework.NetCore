@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             2，军官证
 	///             4，护照]
 	/// </summary>
-	public enum IdTypeEnum
+	public enum IdTypeEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：身份证，值：1

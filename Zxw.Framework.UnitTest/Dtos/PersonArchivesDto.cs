@@ -7,7 +7,7 @@ namespace ZLHP.Site.Models
 	/// <summary>
 	/// 【个人档案】
 	/// </summary>
-	public partial class PersonArchivesDto
+	public partial class personarchivesDto
 	{
 		/// <summary>
 		/// 【个人档案ID】
@@ -605,12 +605,6 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【产检档案】
-		/// </summary>
-		public virtual ICollection<ArchivesDto> Archives {get;set;}
-
-
-		/// <summary>
 		/// 【检查前情况】
 		/// </summary>
 		public virtual ICollection<ExaminationInfoDto> ExaminationInfo {get;set;}
@@ -626,6 +620,12 @@ namespace ZLHP.Site.Models
 		/// 【月经史】
 		/// </summary>
 		public virtual ICollection<MenstrualHistoriesDto> MenstrualHistories {get;set;}
+
+
+		/// <summary>
+		/// 【产检档案】
+		/// </summary>
+		public virtual ICollection<ArchivesDto> Archives {get;set;}
 
 
 

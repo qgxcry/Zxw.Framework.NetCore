@@ -48,7 +48,7 @@ namespace ZLHP.Site.Models
 		/// 【状态】[0，失败
 		///             1，成功]
 		/// </summary>
-		public byte? Status {get;set;}
+		public StatusEnum? Status {get;set;}
 
 
 		/// <summary>

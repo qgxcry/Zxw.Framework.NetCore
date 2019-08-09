@@ -314,6 +314,12 @@ namespace ZLHP.Site.Models
 		public byte? IsEnabled {get;set;}
 
 
+		/// <summary>
+		/// 【高危因素记录】
+		/// </summary>
+		public virtual ICollection<HighRiskRecordsDto> HighRiskRecords {get;set;}
+
+
 
 	}
 }

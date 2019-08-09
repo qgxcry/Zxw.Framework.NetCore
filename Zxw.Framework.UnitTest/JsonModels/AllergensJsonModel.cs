@@ -6,7 +6,7 @@ using ZLHP.Enums;
 namespace ZLHP.Site.Models
 {
 	/// <summary>
-	/// 【过敏源】
+	/// 
 	/// </summary>
 	public partial class AllergensModel
 	{
@@ -65,12 +65,6 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("是否启用")]
 		public byte? IsEnabled {get;set;}
-
-
-		/// <summary>
-		/// 【个人过敏源】
-		/// </summary>
-		public virtual ICollection<PersonAllergensJsonModel> PersonAllergens {get;set;}
 
 
 

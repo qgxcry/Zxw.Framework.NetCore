@@ -7,7 +7,7 @@ namespace ZLHP.Enums
 	/// 【状态】[0，失败
 	///             1，成功]
 	/// </summary>
-	public enum StatusEnum
+	public enum StatusEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：失败，值：0

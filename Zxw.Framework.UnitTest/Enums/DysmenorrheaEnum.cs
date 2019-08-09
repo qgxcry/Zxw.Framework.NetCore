@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	///             2，中
 	///             3，重]
 	/// </summary>
-	public enum DysmenorrheaEnum
+	public enum DysmenorrheaEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：无，值：0

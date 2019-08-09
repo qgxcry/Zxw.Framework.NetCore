@@ -42,7 +42,7 @@ namespace ZLHP.Enums
 	///             403，RScA 
 	///             404，RScP]
 	/// </summary>
-	public enum FetalPositionEnum
+	public enum FetalPositionEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：LOA，值：101

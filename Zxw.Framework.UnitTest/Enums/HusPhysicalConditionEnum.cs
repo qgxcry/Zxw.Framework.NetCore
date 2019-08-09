@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             2，一般
 	///             3，弱]
 	/// </summary>
-	public enum HusPhysicalConditionEnum
+	public enum HusPhysicalConditionEnum:{ValType}
 	{
 		/// <summary>
 		/// 名称：壮，值：1
