@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Zxw.Framework.NetCore.Extensions
@@ -295,6 +296,14 @@ namespace Zxw.Framework.NetCore.Extensions
         {
             var regex = new Regex(strRegex, RegexOptions.Singleline);
             return regex.IsMatch(str);
+        }
+
+        public static string FirstCharToLower(this string input)
+        {
+            if (String.IsNullOrEmpty(input))
+                return input;
+            string str = input.First().ToString().ToLower() + input.Substring(1);
+            return str;
         }
     }
 }

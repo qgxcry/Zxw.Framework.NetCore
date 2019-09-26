@@ -192,7 +192,7 @@ namespace Zxw.Framework.NetCore.Extensions
             return context.GetDataTable(sql);
         }
 
-        public static DataTable GetAllEnumComments(this IDbContextCore context)
+        public static IList<DbTableColumn> GetAllEnumComments(this IDbContextCore context)
         {
             if (context == null) throw new ArgumentNullException(nameof(context));
             var db = context.GetDatabase();
@@ -257,8 +257,33 @@ namespace Zxw.Framework.NetCore.Extensions
             {
                 throw new NotImplementedException("This method does not support current database yet.");
             }
+            DatabaseType dbType;
+            if (db.IsSqlServer())
+                dbType = DatabaseType.MSSQL;
+            else if (db.IsMySql())
+                dbType = DatabaseType.MySQL;
+            else if (db.IsNpgsql())
+            {
+                dbType = DatabaseType.PostgreSQL;
+            }
+            else
+            {
+                throw new NotImplementedException("This method does not support current database yet.");
+            }
+            var columnEnums = context.GetDataTable(sql).ToList<DbTableColumn>();
+            foreach (var x in columnEnums)
+            {
+                var csharpType = DbColumnTypeCollection.DbColumnDataTypes.FirstOrDefault(t =>
+                    t.DatabaseType == dbType && t.ColumnTypes.Split(',').Any(p =>
+                        p.Trim().Equals(x.ColumnType, StringComparison.OrdinalIgnoreCase)))?.CSharpType;
+                if (string.IsNullOrEmpty(csharpType))
+                {
+                    throw new SqlTypeException($"未从字典中找到\"{x.ColumnType}\"对应的C#数据类型，请更新DbColumnTypeCollection类型映射字典。");
+                }
 
-            return context.GetDataTable(sql);
+                x.CSharpType = csharpType;
+            }
+            return columnEnums;
         }
 
         public static DataTable GetRefTables(this IDbContextCore context, string tableName)

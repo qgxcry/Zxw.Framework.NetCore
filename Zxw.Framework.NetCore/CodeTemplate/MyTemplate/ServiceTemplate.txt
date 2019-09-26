@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using ZLHP.EFCore;
+using ZLHP.Enums;
+using ZLHP.Extensions;
+using ZLHP.{GroupName}.Contract.Dtos;
+using ZLHP.{GroupName}.Contract.Services;
+using ZLHP.{GroupName}.Models;
+
+namespace ZLHP.{GroupName}.Services.Services
+{
+    public class {ModelName}Service : {GroupName}BaseService, I{ModelName}Service
+    {
+        private Lazy<IRepository<{ModelName}>> _{modelName}Repository;
+
+        public {ModelName}Service()
+        {
+            _{modelName}Repository = CreateLazyRepository<{ModelName}>();
+        }
+
+        public async Task<List<{ModelName}Dto>> GetAllAsync()
+        {
+            var model = await _{modelName}Repository.Value.FindListAsync(m => m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            return model.MapTo<List<{ModelName}Dto>>();
+        }
+
+        public async Task<List<{ModelName}Dto>> GetAllAsync(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<{ModelName}Dto> GetByIdAsync(KeyTypeName id)
+        {
+            var model = await _{modelName}Repository.Value.FindAsync(m => m.{ModelName}ID == id && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            var data = model.MapTo<{ModelName}Dto>();
+            return data;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetByIdAsync(int userId, KeyTypeName id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<{ModelName}Dto>> GetByIdsAsync(List<KeyTypeName> ids)
+        {
+            var model = await _{modelName}Repository.Value.FindListAsync(m => ids.Contains(m.{ModelName}ID) && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            return model.MapTo<List<{ModelName}Dto>>();
+        }
+
+        public async Task<List<{ModelName}Dto>> GetPageAsync(int page, int limit)
+        {
+            var model = await _{modelName}Repository.Value.FindAllPageListAsync(m => m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled, o => o.{ModelName}ID, page, limit);
+            return model.MapTo<List<{ModelName}Dto>>();
+        }
+
+        public async Task<List<{ModelName}Dto>> GetPageAsync(int userId, int page, int limit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<{ModelName}Dto>> InsertAsync(List<{ModelName}Dto> dtos)
+        {
+            List<{ModelName}Dto> result = null;
+            foreach (var dto in dtos)
+            {
+                dto.UpdateTime = DateTime.Now;
+                dto.IsDeleted = (byte)DeletedEnum.UnDeleted;
+                dto.IsEnabled = (byte)EnabledEnum.Enabled;
+                dto.CreateTime = DateTime.Now;
+                var model = await _{modelName}Repository.Value.InsertAsync(dto.MapTo<{ModelName}>());
+                result.Add(model.MapTo<{ModelName}Dto>());
+            }
+            return result;
+        }
+
+        public async Task<{ModelName}Dto> InsertOrUpdateAsync({ModelName}Dto dto)
+        {
+            {ModelName}Dto result = null;
+
+            var dbData = await _{modelName}Repository.Value.FindAsync(m => dto.{ModelName}ID == m.{ModelName}ID && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+
+            if (dbData != null)
+            {
+                dbData.UpdateTime = DateTime.Now;
+                await _{modelName}Repository.Value.UpdateAsync(dbData);
+                result = dbData.MapTo<{ModelName}Dto>();
+            }
+            else
+            {
+                dto.UpdateTime = DateTime.Now;
+                dto.IsDeleted = (byte)DeletedEnum.UnDeleted;
+                dto.IsEnabled = (byte)EnabledEnum.Enabled;
+                dto.CreateTime = DateTime.Now;
+                var model = await _{modelName}Repository.Value.InsertAsync(dto.MapTo<{ModelName}>());
+                result = model.MapTo<{ModelName}Dto>();
+            }
+            return result;
+        }
+    }
+}

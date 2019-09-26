@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Orleans;
+using ZLHP.{GroupName}.Contract.Dtos;
+using ZLHP.{GroupName}.Contract.Facades;
+using ZLHP.Web.Models;
+using ZLHP.Web.Swagger;
+
+namespace ZLHP.Web.Controllers.Owners.{GroupName}
+{
+    /// <summary>
+    ///
+    /// </summary>
+    [ApiController]
+    public class {ModelName}Controller : BaseApiController
+    {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="orleansClient"></param>
+        public {ModelName}Controller(IClusterClient orleansClient) : base(orleansClient)
+        {
+        }
+
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, ApiRoute("list")]
+        public async Task<ResultResponse<List<{ModelName}Dto>>> GetAsync()
+        {
+            var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).GetAllAsync();
+            return new ResultResponse<List<{ModelName}Dto>>((int)CodeEnum.SUCCESS, "成功", result);
+        }
+
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, ApiRoute("list")]
+        public async Task<ResultResponse<List<{ModelName}Dto>>> GetPageAsync([FromQuery]int page, [FromQuery]int limit)
+        {
+            var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).GetPageAsync(page, limit);
+            return new ResultResponse<List<{ModelName}Dto>>((int)CodeEnum.SUCCESS, "成功", result);
+        }
+
+        // GET: api/{ModelName}/5
+        /// <summary>
+        /// 根据id获取数据
+        /// </summary>
+        [HttpGet, ApiRoute("{id}")]
+        public async Task<ResultResponse<{ModelName}Dto>> GetAsync({KeyTypeName} id)
+        {
+            var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).GetByIdAsync(id);
+            return new ResultResponse<{ModelName}Dto>((int)CodeEnum.SUCCESS, "成功", result);
+        }
+
+        // POST: api/{ModelName}
+        /// <summary>
+        /// 添加数据
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ResultResponse<{ModelName}Dto>> PostAsync([FromBody] {ModelName}Dto dto)
+        {
+            var reslut = await InsertOrUpdate(dto);
+            return reslut;
+        }
+
+        private async Task<ResultResponse<{ModelName}Dto>> InsertOrUpdate({ModelName}Dto dto)
+        {
+            var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).InsertOrUpdateAsync(dto);
+            return new ResultResponse<{ModelName}Dto>((int)CodeEnum.SUCCESS, "成功", result);
+        }
+
+        // PUT: api/{ModelName}/5
+        /// <summary>
+        /// 修改数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ResultResponse<{ModelName}Dto>> Put({KeyTypeName} id, [FromBody] {ModelName}Dto dto)
+        {
+            dto.{ModelName}ID = id;
+            var reslut = await InsertOrUpdate(dto);
+            return reslut;
+        }
+
+        // DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+        }
+    }
+}

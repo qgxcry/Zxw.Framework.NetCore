@@ -1,0 +1,112 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using ZLHP.{GroupName}.Contract.Dtos;
+using ZLHP.{GroupName}.Contract.Facades;
+using ZLHP.{GroupName}.Contract.Services;
+using ZLHP.Orleans;
+
+namespace ZLHP.{GroupName}.Grains
+{
+    public class {ModelName}Grain : GrainBase, I{ModelName}Grain
+    {
+        private Lazy<I{ModelName}Service> _{modelName}Service;
+
+        public async Task<List<{ModelName}Dto>> GetAllAsync()
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetAllAsync();
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetAllAsync(int userId)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetAllAsync(userId);
+            });
+            return result;
+        }
+
+        public async Task<{ModelName}Dto> GetByIdAsync({KeyTypeName} id)
+        {
+            {ModelName}Dto result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetByIdAsync(id);
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetByIdAsync(int userId, {KeyTypeName} id)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetByIdAsync(userId, id);
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetByIdsAsync(List<{KeyTypeName}> ids)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetByIdsAsync(ids);
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetPageAsync(int page, int limit)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetPageAsync(page, limit);
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> GetPageAsync(int userId, int page, int limit)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.GetPageAsync(userId, page, limit);
+            });
+            return result;
+        }
+
+        public async Task<List<{ModelName}Dto>> InsertAsync(List<{ModelName}Dto> dto)
+        {
+            List<{ModelName}Dto> result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.InsertAsync(dto);
+            });
+            return result;
+        }
+
+        public async Task<{ModelName}Dto> InsertOrUpdateAsync({ModelName}Dto dto)
+        {
+            {ModelName}Dto result = null;
+            await InnerAop(async () =>
+            {
+                result = await _{modelName}Service.Value.InsertOrUpdateAsync(dto);
+            });
+            return result;
+        }
+
+        private async Task InnerAop(Func<Task> func, Action<Exception> exAction = null)
+        {
+            await InnerAopBase(func, exAction,
+            _{modelName}Service = GetLazy<I{ModelName}Service>());
+        }
+    }
+}

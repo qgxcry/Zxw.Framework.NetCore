@@ -1,0 +1,11 @@
+﻿using ZLHP.EFCore;
+
+namespace ZLHP.{GroupName}.Contract.Services
+{
+    /// <summary>
+    ///
+    /// </summary>
+    public interface I{ModelName}BaseService : IBaseService
+    {
+    }
+}

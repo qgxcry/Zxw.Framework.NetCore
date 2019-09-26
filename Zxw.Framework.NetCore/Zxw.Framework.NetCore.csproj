@@ -22,17 +22,33 @@
     <None Remove="CodeTemplate\ControllerTemplate.txt" />
     <None Remove="CodeTemplate\DtoTemplate.txt" />
     <None Remove="CodeTemplate\EnumTemplate.txt" />
+    <None Remove="CodeTemplate\IBaseServiceTemplate.txt" />
+    <None Remove="CodeTemplate\IGrainTemplate.txt" />
+    <None Remove="CodeTemplate\IServiceTemplate.txt" />
     <None Remove="CodeTemplate\JsonModelTemplate.txt" />
     <None Remove="CodeTemplate\ModelTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\BaseServiceTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\ControllerTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\GrainTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\IBaseServiceTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\IGrainTemplate.txt" />
+    <None Remove="CodeTemplate\MyTemplate\ServiceTemplate.txt" />
     <None Remove="CodeTemplate\ViewModelTemplate.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="CodeTemplate\ControllerTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\EnumTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\GrainTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\BaseServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\ControllerTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\ServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\IServiceTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\IRepositoryTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\DtoTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\JsonModelTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\IBaseServiceTemplate.txt" />
+    <EmbeddedResource Include="CodeTemplate\MyTemplate\IGrainTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\ViewModelTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\ModelTemplate.txt" />
     <EmbeddedResource Include="CodeTemplate\RepositoryTemplate.txt" />

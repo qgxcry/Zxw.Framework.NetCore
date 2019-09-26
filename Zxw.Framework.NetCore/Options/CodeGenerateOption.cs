@@ -3,6 +3,7 @@
     public class CodeGenerateOption
     {
         public string OutputPath { get; set; }
+        public string GroupName { get; set; }
         public string EnumsNamespace { get; set; }
         public string ModelsNamespace { get; set; }
         public string DtosNamespace { get; set; }

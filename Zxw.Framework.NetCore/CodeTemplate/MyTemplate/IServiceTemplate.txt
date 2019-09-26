@@ -1,0 +1,73 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using ZLHP.Cache.Redis.Attributes;
+using ZLHP.{GroupName}.Contract.Dtos;
+using ZLHP.Enums;
+
+namespace ZLHP.{GroupName}.Contract.Services
+{
+    /// <summary>
+    ///
+    /// </summary>
+    public interface I{ModelName}Service : I{GroupName}BaseService
+    {
+       
+        Task<{ModelName}Dto> GetByIdAsync({KeyTypeName} id);
+		
+        /// <summary>
+        /// 获取用户数据
+        /// </summary>
+        /// <returns></returns>
+        Task<List<{ModelName}Dto>> GetByIdAsync(int userId, {KeyTypeName} id);
+
+		/// <summary>
+        /// 根据id集合查询
+        /// </summary>
+        /// <param name="ids">ID List集合</param>
+        /// <returns></returns>
+        Task<List<{ModelName}Dto>> GetByIdsAsync(List<{KeyTypeName}> ids);
+		
+		
+        /// <summary>
+        /// 获取所有数据
+        /// </summary>
+        /// <returns></returns>
+        Task<List<{ModelName}Dto>> GetAllAsync();
+
+        /// <summary>
+        /// 获取用户数据
+        /// </summary>
+        /// <returns></returns>
+        Task<List<{ModelName}Dto>> GetAllAsync(int userId);
+		
+        
+		/// <summary>
+        /// 获取分页消息
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        Task<List{ModelName}Dto>> GetPageAsync(int page, int limit);
+        
+		/// <summary>
+        /// 获取用户分页消息
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        Task<List{ModelName}Dto>> GetPageAsync(int userId, int page, int limit);
+
+        /// <summary>
+        /// 添加或更新
+        /// </summary>
+        /// <returns></returns>
+        Task<{ModelName}Dto> InsertOrUpdateAsync({ModelName}Dto dto);
+
+        /// <summary>
+        /// 批量添加
+        /// </summary>
+        /// <returns></returns>
+        Task<List<{ModelName}Dto>> InsertAsync(List<{ModelName}Dto> dto);
+    }
+}
