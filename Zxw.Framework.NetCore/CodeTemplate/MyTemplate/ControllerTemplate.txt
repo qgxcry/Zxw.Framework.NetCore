@@ -30,8 +30,8 @@ namespace ZLHP.Web.Controllers.Owners.{GroupName}
         /// 获取所有数据
         /// </summary>
         /// <returns></returns>
-        [HttpGet, ApiRoute("list")]
-        public async Task<ResultResponse<List<{ModelName}Dto>>> GetAsync()
+        [HttpGet, ApiRoute("All")]
+        public async Task<ResultResponse<List<{ModelName}Dto>>> GetAllAsync()
         {
             var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).GetAllAsync();
             return new ResultResponse<List<{ModelName}Dto>>((int)CodeEnum.SUCCESS, "成功", result);
@@ -41,7 +41,7 @@ namespace ZLHP.Web.Controllers.Owners.{GroupName}
         /// 获取所有数据
         /// </summary>
         /// <returns></returns>
-        [HttpGet, ApiRoute("list")]
+        [HttpGet, ApiRoute("List")]
         public async Task<ResultResponse<List<{ModelName}Dto>>> GetPageAsync([FromQuery]int page, [FromQuery]int limit)
         {
             var result = await _orleansClient.GetGrain<I{ModelName}Grain>(0).GetPageAsync(page, limit);
@@ -65,7 +65,7 @@ namespace ZLHP.Web.Controllers.Owners.{GroupName}
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost, ApiRoute("Post")]
         public async Task<ResultResponse<{ModelName}Dto>> PostAsync([FromBody] {ModelName}Dto dto)
         {
             var reslut = await InsertOrUpdate(dto);
@@ -85,10 +85,10 @@ namespace ZLHP.Web.Controllers.Owners.{GroupName}
         /// <param name="id"></param>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
-        public async Task<ResultResponse<{ModelName}Dto>> Put({KeyTypeName} id, [FromBody] {ModelName}Dto dto)
+        [HttpPut("Put/{id}")]
+        public async Task<ResultResponse<{ModelName}Dto>> PutAsync({KeyTypeName} id, [FromBody] {ModelName}Dto dto)
         {
-            dto.{ModelName}ID = id;
+            dto.{keyColumnName} = id;
             var reslut = await InsertOrUpdate(dto);
             return reslut;
         }

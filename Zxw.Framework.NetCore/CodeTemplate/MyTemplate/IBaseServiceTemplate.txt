@@ -5,7 +5,7 @@ namespace ZLHP.{GroupName}.Contract.Services
     /// <summary>
     ///
     /// </summary>
-    public interface I{ModelName}BaseService : IBaseService
+    public interface I{GroupName}BaseService : IBaseService
     {
     }
 }

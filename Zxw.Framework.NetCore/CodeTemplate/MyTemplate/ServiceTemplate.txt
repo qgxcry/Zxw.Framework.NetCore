@@ -31,27 +31,27 @@ namespace ZLHP.{GroupName}.Services.Services
             throw new NotImplementedException();
         }
 
-        public async Task<{ModelName}Dto> GetByIdAsync(KeyTypeName id)
+        public async Task<{ModelName}Dto> GetByIdAsync({KeyTypeName} id)
         {
-            var model = await _{modelName}Repository.Value.FindAsync(m => m.{ModelName}ID == id && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            var model = await _{modelName}Repository.Value.FindAsync(m => m.{keyColumnName} == id && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
             var data = model.MapTo<{ModelName}Dto>();
             return data;
         }
 
-        public async Task<List<{ModelName}Dto>> GetByIdAsync(int userId, KeyTypeName id)
+        public async Task<List<{ModelName}Dto>> GetByIdAsync(int userId, {KeyTypeName} id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<{ModelName}Dto>> GetByIdsAsync(List<KeyTypeName> ids)
+        public async Task<List<{ModelName}Dto>> GetByIdsAsync(List<{KeyTypeName}> ids)
         {
-            var model = await _{modelName}Repository.Value.FindListAsync(m => ids.Contains(m.{ModelName}ID) && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            var model = await _{modelName}Repository.Value.FindListAsync(m => ids.Contains(m.{keyColumnName}) && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
             return model.MapTo<List<{ModelName}Dto>>();
         }
 
         public async Task<List<{ModelName}Dto>> GetPageAsync(int page, int limit)
         {
-            var model = await _{modelName}Repository.Value.FindAllPageListAsync(m => m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled, o => o.{ModelName}ID, page, limit);
+            var model = await _{modelName}Repository.Value.FindAllPageListAsync(m => m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled, o => o.{keyColumnName}, page, limit);
             return model.MapTo<List<{ModelName}Dto>>();
         }
 
@@ -79,7 +79,7 @@ namespace ZLHP.{GroupName}.Services.Services
         {
             {ModelName}Dto result = null;
 
-            var dbData = await _{modelName}Repository.Value.FindAsync(m => dto.{ModelName}ID == m.{ModelName}ID && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
+            var dbData = await _{modelName}Repository.Value.FindAsync(m => dto.{keyColumnName} == m.{keyColumnName} && m.IsDeleted == (byte)DeletedEnum.UnDeleted && m.IsEnabled == (byte)EnabledEnum.Enabled);
 
             if (dbData != null)
             {

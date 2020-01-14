@@ -1,4 +1,6 @@
-﻿namespace Zxw.Framework.NetCore.Options
+﻿using System.Collections.Generic;
+
+namespace Zxw.Framework.NetCore.Options
 {
     public class CodeGenerateOption
     {
@@ -6,6 +8,7 @@
         public string GroupName { get; set; }
         public string EnumsNamespace { get; set; }
         public string ModelsNamespace { get; set; }
+        public List<string> Tables { get; set; }
         public string DtosNamespace { get; set; }
         public string JsonModelsNamespace { get; set; }
         public string ViewModelsNamespace { get; set; }

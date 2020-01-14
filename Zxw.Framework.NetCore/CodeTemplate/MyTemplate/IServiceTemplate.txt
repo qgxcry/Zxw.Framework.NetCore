@@ -47,7 +47,7 @@ namespace ZLHP.{GroupName}.Contract.Services
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        Task<List{ModelName}Dto>> GetPageAsync(int page, int limit);
+        Task<List<{ModelName}Dto>> GetPageAsync(int page, int limit);
         
 		/// <summary>
         /// 获取用户分页消息
@@ -56,7 +56,7 @@ namespace ZLHP.{GroupName}.Contract.Services
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        Task<List{ModelName}Dto>> GetPageAsync(int userId, int page, int limit);
+        Task<List<{ModelName}Dto>> GetPageAsync(int userId, int page, int limit);
 
         /// <summary>
         /// 添加或更新

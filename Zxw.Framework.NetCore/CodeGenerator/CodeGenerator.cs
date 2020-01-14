@@ -15,8 +15,8 @@ using NpgsqlTypes;
 using Zxw.Framework.NetCore.DbContextCore;
 using Zxw.Framework.NetCore.Extensions;
 using Zxw.Framework.NetCore.IoC;
-using Zxw.Framework.NetCore.Models;
 using Zxw.Framework.NetCore.Options;
+using Zxw.Framework.NetCore.Models;
 
 namespace Zxw.Framework.NetCore.CodeGenerator
 {
@@ -151,7 +151,8 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         private static void GenerateIService(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
         {
             var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]"); ;
+            var groupName = table.TableComment.Extract(@"\[(.*)\]");
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Contract\\Services";
             if (!Directory.Exists(iRepositoryPath))
             {
@@ -163,6 +164,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var content = ReadTemplate("MyTemplate.IServiceTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
                 .Replace("{ModelName}", modelTypeName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
         }
@@ -177,6 +179,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         {
             var modelTypeName = table.TableName;
             var groupName = table.TableComment.Extract(@"\[(.*)\]");
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Services\\Services";
             if (!Directory.Exists(iRepositoryPath))
             {
@@ -188,6 +191,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var content = ReadTemplate("MyTemplate.ServiceTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
                 .Replace("{ModelName}", modelTypeName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{modelName}", modelTypeName.FirstCharToLower())
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
@@ -199,22 +203,18 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         /// <param name="modelTypeName"></param>
         /// <param name="keyTypeName"></param>
         /// <param name="ifExsitedCovered"></param>
-        private static void GenerateBaseService(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
+        private static void GenerateBaseService(string groupName, string keyTypeName, bool ifExsitedCovered = false)
         {
-            var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]"); ;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Services\\Services";
             if (!Directory.Exists(iRepositoryPath))
             {
                 Directory.CreateDirectory(iRepositoryPath);
             }
-            var fullPath = iRepositoryPath + Delimiter + modelTypeName + "BaseService.cs";
+            var fullPath = iRepositoryPath + Delimiter + groupName + "BaseService.cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;
             var content = ReadTemplate("MyTemplate.BaseServiceTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
-                .Replace("{ModelName}", modelTypeName)
-                .Replace("{modelName}", modelTypeName.FirstCharToLower())
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
         }
@@ -225,22 +225,19 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         /// <param name="modelTypeName"></param>
         /// <param name="keyTypeName"></param>
         /// <param name="ifExsitedCovered"></param>
-        private static void GenerateIBaseService(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
+        private static void GenerateIBaseService(string groupName, string keyTypeName, bool ifExsitedCovered = false)
         {
-            var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]");
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Contract\\Services";
             if (!Directory.Exists(iRepositoryPath))
             {
                 Directory.CreateDirectory(iRepositoryPath);
             }
-            var fullPath = iRepositoryPath + Delimiter + "I" + modelTypeName + "BaseService.cs";
+            var fullPath = iRepositoryPath + Delimiter + "I" + groupName + "BaseService.cs";
             if (File.Exists(fullPath) && !ifExsitedCovered)
                 return;
             var content = ReadTemplate("MyTemplate.IBaseServiceTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
-                .Replace("{ModelName}", modelTypeName)
-                .Replace("{modelName}", modelTypeName.FirstCharToLower())
+
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
         }
@@ -254,7 +251,8 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         private static void GenerateIGrain(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
         {
             var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]"); ;
+            var groupName = table.TableComment.Extract(@"\[(.*)\]");
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Contract\\Facades";
             if (!Directory.Exists(iRepositoryPath))
             {
@@ -266,6 +264,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var content = ReadTemplate("MyTemplate.IGrainTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
                 .Replace("{ModelName}", modelTypeName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{modelName}", modelTypeName.FirstCharToLower())
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
@@ -280,7 +279,8 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         private static void GenerateGrain(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
         {
             var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]"); ;
+            var groupName = table.TableComment.Extract(@"\[(.*)\]");
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP." + groupName + ".Grains";
             if (!Directory.Exists(iRepositoryPath))
             {
@@ -292,6 +292,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var content = ReadTemplate("MyTemplate.GrainTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
                 .Replace("{ModelName}", modelTypeName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{modelName}", modelTypeName.FirstCharToLower())
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
@@ -306,7 +307,8 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         private static void GenerateController(DbTable table, string keyTypeName, bool ifExsitedCovered = false)
         {
             var modelTypeName = table.TableName;
-            var groupName = table.TableComment.Extract(@"\[(.*)\]"); ;
+            var groupName = table.TableComment.Extract(@"\[(.*)\]");
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var iRepositoryPath = options.Value.OutputPath + Delimiter + "ZLHP.Web\\Controllers\\Owners\\" + groupName;
             if (!Directory.Exists(iRepositoryPath))
             {
@@ -318,6 +320,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var content = ReadTemplate("MyTemplate.ControllerTemplate.txt");
             content = content.Replace("{GroupName}", groupName)
                 .Replace("{ModelName}", modelTypeName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{modelName}", modelTypeName.FirstCharToLower())
                 .Replace("{KeyTypeName}", keyTypeName);
             WriteAndSave(fullPath, content);
@@ -377,7 +380,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
         /// 根据数据表生成Model层、Controller层、IRepository层和Repository层代码
         /// </summary>
         /// <param name="ifExsitedCovered">是否覆盖已存在的同名文件</param>
-        public static void GenerateAllCodesFromDatabase(bool ifExsitedCovered = false)
+        public static void GenerateAllCodesFromDatabase(bool ifExsitedCovered = false, bool coveredSGC = false)
         {
             var dbContext = AspectCoreContainer.Resolve<IDbContextCore>();
             if (dbContext == null)
@@ -389,7 +392,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var listEnums = new Dictionary<string, string>();
             foreach (var col in columnEnums)
             {
-                GenerateEnum(col, listEnums);
+                GenerateEnum(col, listEnums, coveredSGC);
             }
 
             #endregion 获取Comment枚举 格式用[枚举代码，枚举值]包裹枚举值,每行代表一个枚举类型
@@ -402,28 +405,39 @@ namespace Zxw.Framework.NetCore.CodeGenerator
                     if (table.Columns.Any(c => c.IsPrimaryKey))
                     {
                         var groupName = options.Value.GroupName;
+                        var tableNames = options.Value.Tables;
                         var currGroupName = table.TableComment.Extract(@"\[(.*)\]");
                         currGroupName = string.IsNullOrEmpty(groupName) ? "Default" : currGroupName;
                         if (string.IsNullOrEmpty(groupName) || currGroupName == groupName)
                         {
-                            var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
-                            GenerateEntity(table, listEnums, ifExsitedCovered: ifExsitedCovered);
-                            GenerateEntity(table, listEnums, ModelType.Dto, ifExsitedCovered: ifExsitedCovered);
-                            //GenerateEntity(table, listEnums, ModelType.JsonModel, ifExsitedCovered: ifExsitedCovered);
-                            GenerateEntity(table, listEnums, ModelType.ViewModel, ifExsitedCovered: ifExsitedCovered);
-                            GenerateIBaseService(table, pkTypeName);
-                            GenerateIService(table, pkTypeName);
-                            GenerateService(table, pkTypeName);
-                            GenerateIGrain(table, pkTypeName);
-                            GenerateGrain(table, pkTypeName);
-                            GenerateController(table, pkTypeName);
+                            if (tableNames == null || tableNames.Contains(table.TableName))
+                            {
+                                var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
+                                GenerateEntity(table, listEnums, ifExsitedCovered: ifExsitedCovered);
+                                GenerateEntity(table, listEnums, ModelType.Dto, ifExsitedCovered: ifExsitedCovered);
+                                //GenerateEntity(table, listEnums, ModelType.JsonModel, ifExsitedCovered: ifExsitedCovered);
+                                GenerateEntity(table, listEnums, ModelType.ViewModel, ifExsitedCovered: ifExsitedCovered);
+                                GenerateIBaseService(currGroupName, pkTypeName, coveredSGC);
+                                GenerateBaseService(currGroupName, pkTypeName, coveredSGC);
+                                GenerateIService(table, pkTypeName, coveredSGC);
+                                GenerateService(table, pkTypeName, coveredSGC);
+                                GenerateIGrain(table, pkTypeName, coveredSGC);
+                                GenerateGrain(table, pkTypeName, coveredSGC);
+                                GenerateController(table, pkTypeName, coveredSGC);
+                            }
                         }
                     }
                 }
             }
         }
 
-        private static void GenerateEnum(DbTableColumn column, Dictionary<string, string> dic)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="dic"></param>
+        /// <param name="ifExsitedCovered"></param>
+        private static void GenerateEnum(DbTableColumn column, Dictionary<string, string> dic, bool ifExsitedCovered = false)
         {
             //var currentAssembly = Assembly.GetExecutingAssembly();
             //var path = Path.GetDirectoryName(currentAssembly.Location);
@@ -436,7 +450,13 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             {
                 Directory.CreateDirectory(modelPath);
             }
+            //if (dic.ContainsKey(column.ColName))
+            //{
+            //    column.ColName = column.ColName + "1";
+            //}
             var fullPath = modelPath + Delimiter + column.ColName + "Enum.cs";
+            if (File.Exists(fullPath) && !ifExsitedCovered)
+                return;
 
             var sb = new StringBuilder();
             var comment = column.Comment.Extract(@"\[(.*)\]");
@@ -449,7 +469,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
 
             var content = ReadTemplate("EnumTemplate.txt");
             content = content.Replace("{EnumNamespace}", options.Value.EnumsNamespace)
-                .Replace("{ValType}", column.CSharpType)
+                .Replace("{ValType}", column.CSharpType == "string" ? "byte" : column.CSharpType)
                 .Replace("{Comment}", column.Comment.Replace("\r\n", "\r\n\t/// "))
                 .Replace("{EnumName}", column.ColName + "Enum")
                 .Replace("{EnumProperties}", sb.ToString());
@@ -494,7 +514,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
                     break;
 
                 case ModelType.ViewModel:
-                    path = path + " ZLHP.Web\\Models\\Owners\\" + groupName + "s"; break;
+                    path = path + "ZLHP.Web\\Models\\Owners\\" + groupName + "s"; break;
             }
             var modelPath = path;
             if (!Directory.Exists(modelPath))
@@ -507,6 +527,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
                 return;
 
             var pkTypeName = table.Columns.First(m => m.IsPrimaryKey).CSharpType;
+            var keyColumnName = table.Columns.First(m => m.IsPrimaryKey).ColName;
             var sb = new StringBuilder();
             foreach (var column in table.Columns)
             {
@@ -524,15 +545,16 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var modelNamespace = "";
             switch (modelType)
             {
-                case ModelType.Model: modelNamespace = options.Value.ModelsNamespace; break;
-                case ModelType.Dto: modelNamespace = options.Value.DtosNamespace; break;
+                case ModelType.Model: modelNamespace = "ZLHP." + groupName + ".Models"; break;
+                case ModelType.Dto: modelNamespace = "ZLHP." + groupName + ".Contract.Dtos"; break;
                 case ModelType.JsonModel: modelNamespace = options.Value.JsonModelsNamespace; break;
-                case ModelType.ViewModel: modelNamespace = options.Value.ViewModelsNamespace; break;
+                case ModelType.ViewModel: modelNamespace = "ZLHP.Web.Models.Owners." + groupName + "s"; break;
                 default: modelNamespace = options.Value.ModelsNamespace; break;
             }
             content = content.Replace("{ModelsNamespace}", modelNamespace)
                 .Replace("{Comment}", table.TableComment)
                 .Replace("{ModelName}", table.TableName)
+                .Replace("{keyColumnName}", keyColumnName)
                 .Replace("{KeyTypeName}", pkTypeName)
                 .Replace("{ModelProperties}", sb.ToString());
             WriteAndSave(fullPath, content);
