@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【消息发送记录】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【消息记录ID】
 		/// </summary>
 		[JsonProperty("消息记录ID")]
-		public long MessageLogID {get;set;}
+		public long? MessageLogID {get;set;}
 
 
 		/// <summary>

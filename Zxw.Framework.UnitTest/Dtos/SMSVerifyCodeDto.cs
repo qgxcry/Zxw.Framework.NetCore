@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【手机短信验证】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【短信验证ID】
 		/// </summary>
-		public long SMSVerifyCodeID {get;set;}
+		public long? SMSVerifyCodeID {get;set;}
 
 
 		/// <summary>

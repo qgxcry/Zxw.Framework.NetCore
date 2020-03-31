@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【栏目配置】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【栏目配置ID】
 		/// </summary>
 		[JsonProperty("栏目配置ID")]
-		public int SectionID {get;set;}
+		public int? SectionID {get;set;}
 
 
 		/// <summary>

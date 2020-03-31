@@ -7,7 +7,7 @@ namespace ZLHP.Enums
 	/// 【退款类型】[0，全额
 	///             1，部分]
 	/// </summary>
-	public enum RefundTypeEnum:{ValType}
+	public enum RefundTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：全额，值：0

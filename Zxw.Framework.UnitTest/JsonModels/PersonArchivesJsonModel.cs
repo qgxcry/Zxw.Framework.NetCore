@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【个人档案】
 	/// </summary>
-	public partial class personarchivesModel
+	public partial class PersonArchivesModel
 	{
 		/// <summary>
 		/// 【个人档案ID】
 		/// </summary>
 		[JsonProperty("个人档案ID")]
-		public long PersonArchiveID {get;set;}
+		public long? PersonArchiveID {get;set;}
 
 
 		/// <summary>
@@ -62,9 +62,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【身份证号】
+		/// 【证件号】
 		/// </summary>
-		[JsonProperty("身份证号")]
+		[JsonProperty("证件号")]
 		public string IDNumber {get;set;}
 
 
@@ -325,6 +325,13 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("户口区域ID")]
 		public int? RegAreaID {get;set;}
+
+
+		/// <summary>
+		/// 【更新时间】
+		/// </summary>
+		[JsonProperty("更新时间")]
+		public DateTime? UpdateTime {get;set;}
 
 
 		/// <summary>
@@ -680,10 +687,15 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【更新时间】
+		/// 【孕期记录】
 		/// </summary>
-		[JsonProperty("更新时间")]
-		public DateTime? UpdateTime {get;set;}
+		public virtual ICollection<GestationRecordsJsonModel> GestationRecords {get;set;}
+
+
+		/// <summary>
+		/// 【产检档案】
+		/// </summary>
+		public virtual ICollection<ArchivesJsonModel> Archives {get;set;}
 
 
 		/// <summary>
@@ -702,12 +714,6 @@ namespace ZLHP.Site.Models
 		/// 【月经史】
 		/// </summary>
 		public virtual ICollection<MenstrualHistoriesJsonModel> MenstrualHistories {get;set;}
-
-
-		/// <summary>
-		/// 【产检档案】
-		/// </summary>
-		public virtual ICollection<ArchivesJsonModel> Archives {get;set;}
 
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【预约记录】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【预约记录ID】
 		/// </summary>
 		[JsonProperty("预约记录ID")]
-		public long RegisterRecordID {get;set;}
+		public long? RegisterRecordID {get;set;}
 
 
 		/// <summary>

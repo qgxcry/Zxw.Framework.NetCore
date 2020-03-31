@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【代码类别】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【代码类别ID】
 		/// </summary>
-		public int CodeTypeID {get;set;}
+		public int? CodeTypeID {get;set;}
 
 
 		/// <summary>

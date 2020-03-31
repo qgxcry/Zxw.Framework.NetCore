@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	/// 20，订单不存在
 	/// 30，金额不匹配]
 	/// </summary>
-	public enum TransStatusEnum:{ValType}
+	public enum TransStatusEnum:byte
 	{
 		/// <summary>
 		/// 名称：失败，值：0

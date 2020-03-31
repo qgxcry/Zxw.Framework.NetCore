@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【胎动记录】
@@ -12,20 +12,19 @@ namespace ZLHP.Site.Models
 	public partial class FetalRecordsViewModel
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【胎动记录ID】
 		/// </summary>
-		[Required]
-		public long FetalRecordID {get;set;}
+		public long? FetalRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public long? ArchiveID {get;set;}
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public virtual ArchivesViewModel Archives {get;set;}
+		public virtual GestationRecordsViewModel GestationRecords {get;set;}
 
 
 		/// <summary>

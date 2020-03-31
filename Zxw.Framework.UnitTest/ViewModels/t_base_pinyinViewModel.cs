@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 
@@ -16,8 +16,7 @@ namespace ZLHP.Site.Models
 		public string pin_yin_ {get;set;}
 
 
-		[Required]
-		public int code_ {get;set;}
+		public int? code_ {get;set;}
 
 
 

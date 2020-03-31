@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【行政区域】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【区域ID】
 		/// </summary>
-		public int AreaID {get;set;}
+		public int? AreaID {get;set;}
 
 
 		/// <summary>

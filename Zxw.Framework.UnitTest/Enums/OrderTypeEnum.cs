@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             1，诊间支付
 	///             2，咨询]
 	/// </summary>
-	public enum OrderTypeEnum:{ValType}
+	public enum OrderTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：预约挂号，值：0

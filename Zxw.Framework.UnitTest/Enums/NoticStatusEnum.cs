@@ -10,7 +10,7 @@ namespace ZLHP.Enums
 	///             3，过期通知
 	///             ]
 	/// </summary>
-	public enum NoticStatusEnum:{ValType}
+	public enum NoticStatusEnum:byte
 	{
 		/// <summary>
 		/// 名称：未通知，值：0

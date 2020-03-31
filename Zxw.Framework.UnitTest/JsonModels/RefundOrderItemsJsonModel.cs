@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【退款明细】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【退款明细ID】
 		/// </summary>
 		[JsonProperty("退款明细ID")]
-		public long RefundOrderItemID {get;set;}
+		public long? RefundOrderItemID {get;set;}
 
 
 		/// <summary>

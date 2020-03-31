@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【胎动记录】
@@ -14,21 +14,22 @@ namespace ZLHP.Site.Models
 	public partial class FetalRecords:BaseEntity
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【胎动记录ID】
 		/// </summary>
 		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public  long FetalRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public long? ArchiveID {get;set;}
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		[ForeignKey("ArchiveID")]
-		public virtual Archives Archives {get;set;}
+		[ForeignKey("GestationRecordID")]
+		public virtual GestationRecords GestationRecords {get;set;}
 
 
 		/// <summary>

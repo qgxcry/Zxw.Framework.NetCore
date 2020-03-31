@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 
@@ -15,7 +15,7 @@ namespace ZLHP.Site.Models
 
 
 		[JsonProperty("")]
-		public int code_ {get;set;}
+		public int? code_ {get;set;}
 
 
 

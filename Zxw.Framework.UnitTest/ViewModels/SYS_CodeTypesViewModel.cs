@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【代码类别】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【代码类别ID】
 		/// </summary>
-		[Required]
-		public int CodeTypeID {get;set;}
+		public int? CodeTypeID {get;set;}
 
 
 		/// <summary>

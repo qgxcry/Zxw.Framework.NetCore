@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【微信二维码】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【微信二维码ID】
 		/// </summary>
 		[JsonProperty("微信二维码ID")]
-		public long QrCodeID {get;set;}
+		public long? QrCodeID {get;set;}
 
 
 		/// <summary>

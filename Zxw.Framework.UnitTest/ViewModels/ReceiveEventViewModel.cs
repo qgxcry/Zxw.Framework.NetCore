@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【事件推送】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【事件推送ID】
 		/// </summary>
-		[Required]
-		public long ReceiveEventID {get;set;}
+		public long? ReceiveEventID {get;set;}
 
 
 		/// <summary>

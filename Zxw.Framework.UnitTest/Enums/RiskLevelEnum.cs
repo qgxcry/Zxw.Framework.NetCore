@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace ZLHP.Enums
 {
 	/// <summary>
-	/// 【妊娠风险评估】1. 绿（低风险）、
+	/// 【妊娠风险评估等级】1. 绿（低风险）、
 	///             2. 黄（一般风险）、
 	///             3. 橙（较高风险）、
 	///             4. 红（高风险）、
@@ -15,7 +15,7 @@ namespace ZLHP.Enums
 	///             4，红
 	///             5，紫]
 	/// </summary>
-	public enum RiskLevelEnum:{ValType}
+	public enum RiskLevelEnum:string
 	{
 		/// <summary>
 		/// 名称：绿，值：1

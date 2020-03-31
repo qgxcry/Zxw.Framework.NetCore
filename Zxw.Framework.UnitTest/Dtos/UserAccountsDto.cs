@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【绑定账号】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【绑定账号ID】
 		/// </summary>
-		public int UserAccountsID {get;set;}
+		public int? UserAccountsID {get;set;}
 
 
 		/// <summary>

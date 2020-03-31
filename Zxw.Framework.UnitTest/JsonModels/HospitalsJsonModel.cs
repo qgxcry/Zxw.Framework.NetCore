@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【医院】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【医院ID】
 		/// </summary>
 		[JsonProperty("医院ID")]
-		public int HospitalID {get;set;}
+		public int? HospitalID {get;set;}
 
 
 		/// <summary>

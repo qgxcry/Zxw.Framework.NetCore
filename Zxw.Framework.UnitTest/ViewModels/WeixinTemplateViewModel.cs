@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【微信模板】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【微信模板ID】
 		/// </summary>
-		[Required]
-		public int WeixinTemplateID {get;set;}
+		public int? WeixinTemplateID {get;set;}
 
 
 		/// <summary>

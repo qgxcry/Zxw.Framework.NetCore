@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【交易明细】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【交易明细ID】
 		/// </summary>
 		[JsonProperty("交易明细ID")]
-		public long TransactionItemID {get;set;}
+		public long? TransactionItemID {get;set;}
 
 
 		/// <summary>

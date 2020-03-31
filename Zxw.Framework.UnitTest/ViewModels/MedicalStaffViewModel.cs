@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【医务人员】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【医务人员ID】
 		/// </summary>
-		[Required]
-		public int MedicalStaffID {get;set;}
+		public int? MedicalStaffID {get;set;}
 
 
 		/// <summary>

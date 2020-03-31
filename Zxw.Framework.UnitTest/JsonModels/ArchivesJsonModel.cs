@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【产检档案】
@@ -14,7 +14,18 @@ namespace ZLHP.Site.Models
 		/// 【产检档案ID】
 		/// </summary>
 		[JsonProperty("产检档案ID")]
-		public long ArchiveID {get;set;}
+		public long? ArchiveID {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		[JsonProperty("孕期记录ID")]
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public virtual GestationRecordsJsonModel GestationRecords {get;set;}
 
 
 		/// <summary>
@@ -36,17 +47,17 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【卡号】
+		/// </summary>
+		[JsonProperty("卡号")]
+		public string CardNo {get;set;}
+
+
+		/// <summary>
 		/// 【孕妇编号】
 		/// </summary>
 		[JsonProperty("孕妇编号")]
 		public string UserNo {get;set;}
-
-
-		/// <summary>
-		/// 【医院卡号】
-		/// </summary>
-		[JsonProperty("医院卡号")]
-		public string CardNo {get;set;}
 
 
 		/// <summary>
@@ -99,9 +110,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【身份证号】
+		/// 【证件号】
 		/// </summary>
-		[JsonProperty("身份证号")]
+		[JsonProperty("证件号")]
 		public string IDNumber {get;set;}
 
 
@@ -120,9 +131,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【预产期】
+		/// 【出生日期】
 		/// </summary>
-		[JsonProperty("预产期")]
+		[JsonProperty("出生日期")]
 		public DateTime? BornDate {get;set;}
 
 
@@ -233,10 +244,10 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【现住乡镇】
+		/// 【休养省份】
 		/// </summary>
-		[JsonProperty("现住乡镇")]
-		public string Village {get;set;}
+		[JsonProperty("休养省份")]
+		public string RestProvince {get;set;}
 
 
 		/// <summary>
@@ -254,10 +265,10 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【休养省份】
+		/// 【现住乡镇】
 		/// </summary>
-		[JsonProperty("休养省份")]
-		public string RestProvince {get;set;}
+		[JsonProperty("现住乡镇")]
+		public string Village {get;set;}
 
 
 		/// <summary>
@@ -324,6 +335,20 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【户口乡镇】
+		/// </summary>
+		[JsonProperty("户口乡镇")]
+		public string RegVillage {get;set;}
+
+
+		/// <summary>
+		/// 【户口居委会】
+		/// </summary>
+		[JsonProperty("户口居委会")]
+		public string RegCommunity {get;set;}
+
+
+		/// <summary>
 		/// 【户口省份】
 		/// </summary>
 		[JsonProperty("户口省份")]
@@ -342,20 +367,6 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("户口区县")]
 		public string RegDistrict {get;set;}
-
-
-		/// <summary>
-		/// 【户口乡镇】
-		/// </summary>
-		[JsonProperty("户口乡镇")]
-		public string RegVillage {get;set;}
-
-
-		/// <summary>
-		/// 【户口居委会】
-		/// </summary>
-		[JsonProperty("户口居委会")]
-		public string RegCommunity {get;set;}
 
 
 		/// <summary>
@@ -475,6 +486,13 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("丈夫职业")]
 		public HusProfessionEnum? HusProfession {get;set;}
+
+
+		/// <summary>
+		/// 【丈夫单位】
+		/// </summary>
+		[JsonProperty("丈夫单位")]
+		public string HusEmployer {get;set;}
 
 
 		/// <summary>
@@ -720,15 +738,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【体重管理】
+		/// 【检查报告】
 		/// </summary>
-		public virtual ICollection<BodyWeightRecordsJsonModel> BodyWeightRecords {get;set;}
-
-
-		/// <summary>
-		/// 【胎动记录】
-		/// </summary>
-		public virtual ICollection<FetalRecordsJsonModel> FetalRecords {get;set;}
+		public virtual ICollection<CheckReportsJsonModel> CheckReports {get;set;}
 
 
 		/// <summary>

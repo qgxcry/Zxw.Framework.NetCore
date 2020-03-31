@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【高危因素】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【高危因素ID】
 		/// </summary>
 		[JsonProperty("高危因素ID")]
-		public long HighRiskFactorID {get;set;}
+		public long? HighRiskFactorID {get;set;}
 
 
 		/// <summary>
@@ -43,6 +43,13 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("上级ID")]
 		public long? ParentID {get;set;}
+
+
+		/// <summary>
+		/// 【是否可选】
+		/// </summary>
+		[JsonProperty("是否可选")]
+		public byte? IsSelect {get;set;}
 
 
 		/// <summary>

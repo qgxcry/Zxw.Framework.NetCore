@@ -16,7 +16,7 @@ namespace ZLHP.Enums
 	///             ]
 	///             
 	/// </summary>
-	public enum ProfessionEnum:{ValType}
+	public enum ProfessionEnum:byte
 	{
 		/// <summary>
 		/// 名称：国家机关党群组织企业事业单位负责人，值：0

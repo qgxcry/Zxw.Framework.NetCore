@@ -17,7 +17,7 @@ namespace ZLHP.Enums
 	///             999，NeuChar
 	///             ]
 	/// </summary>
-	public enum MsgTypeEnum:{ValType}
+	public enum MsgTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：Unknown，值：1

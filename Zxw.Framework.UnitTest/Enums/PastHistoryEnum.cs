@@ -22,7 +22,7 @@ namespace ZLHP.Enums
 	///             15，其他
 	///             ]
 	/// </summary>
-	public enum PastHistoryEnum:{ValType}
+	public enum PastHistoryEnum:string
 	{
 		/// <summary>
 		/// 名称：无，值：0

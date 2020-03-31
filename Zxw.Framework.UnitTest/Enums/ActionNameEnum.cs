@@ -10,7 +10,7 @@ namespace ZLHP.Enums
 	///             40，QR_LIMIT_STR_SCENE
 	///             ]
 	/// </summary>
-	public enum ActionNameEnum:{ValType}
+	public enum ActionNameEnum:byte
 	{
 		/// <summary>
 		/// 名称：QR_SCENE，值：10

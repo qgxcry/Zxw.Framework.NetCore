@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【栏目配置】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【栏目配置ID】
 		/// </summary>
-		public int SectionID {get;set;}
+		public int? SectionID {get;set;}
 
 
 		/// <summary>

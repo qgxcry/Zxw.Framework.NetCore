@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【胎动记录】
@@ -11,21 +11,21 @@ namespace ZLHP.Site.Models
 	public partial class FetalRecordsModel
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【胎动记录ID】
 		/// </summary>
-		[JsonProperty("ID")]
-		public long FetalRecordID {get;set;}
+		[JsonProperty("胎动记录ID")]
+		public long? FetalRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		[JsonProperty("产检档案ID")]
-		public long? ArchiveID {get;set;}
+		[JsonProperty("孕期记录ID")]
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public virtual ArchivesJsonModel Archives {get;set;}
+		public virtual GestationRecordsJsonModel GestationRecords {get;set;}
 
 
 		/// <summary>

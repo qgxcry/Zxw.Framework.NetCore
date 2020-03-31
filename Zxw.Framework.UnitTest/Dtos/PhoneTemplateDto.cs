@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【短信模板】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【短信模板ID】
 		/// </summary>
-		public int PhoneTemplateID {get;set;}
+		public int? PhoneTemplateID {get;set;}
 
 
 		/// <summary>

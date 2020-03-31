@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【体重管理】
@@ -14,21 +14,33 @@ namespace ZLHP.Site.Models
 	public partial class BodyWeightRecords:BaseEntity
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【体重记录ID】
 		/// </summary>
 		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public  long BodyWeightRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public long? ArchiveID {get;set;}
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		[ForeignKey("ArchiveID")]
-		public virtual Archives Archives {get;set;}
+		[ForeignKey("GestationRecordID")]
+		public virtual GestationRecords GestationRecords {get;set;}
+
+
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		public long? BodyWeightTypeID {get;set;}
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		[ForeignKey("BodyWeightTypeID")]
+		public virtual BodyWeightLimitType BodyWeightLimitType {get;set;}
 
 
 		/// <summary>
@@ -41,6 +53,15 @@ namespace ZLHP.Site.Models
 		/// 【孕周】
 		/// </summary>
 		public int? Week {get;set;}
+
+
+		/// <summary>
+		/// 【体重类型】[0，体重过轻
+		///             1，体重正常
+		///             2，体重超重
+		///             3，体重肥胖]
+		/// </summary>
+		public BodyWeightTypeEnum? BodyWeightType {get;set;}
 
 
 		/// <summary>

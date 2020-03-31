@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【体重管理】
@@ -11,21 +11,32 @@ namespace ZLHP.Site.Models
 	public partial class BodyWeightRecordsModel
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【体重记录ID】
 		/// </summary>
-		[JsonProperty("ID")]
-		public long BodyWeightRecordID {get;set;}
+		[JsonProperty("体重记录ID")]
+		public long? BodyWeightRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		[JsonProperty("产检档案ID")]
-		public long? ArchiveID {get;set;}
+		[JsonProperty("孕期记录ID")]
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public virtual ArchivesJsonModel Archives {get;set;}
+		public virtual GestationRecordsJsonModel GestationRecords {get;set;}
+
+
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		[JsonProperty("孕期体重增长类型ID")]
+		public long? BodyWeightTypeID {get;set;}
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		public virtual BodyWeightLimitTypeJsonModel BodyWeightLimitType {get;set;}
 
 
 		/// <summary>
@@ -40,6 +51,16 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("孕周")]
 		public int? Week {get;set;}
+
+
+		/// <summary>
+		/// 【体重类型】[0，体重过轻
+		///             1，体重正常
+		///             2，体重超重
+		///             3，体重肥胖]
+		/// </summary>
+		[JsonProperty("体重类型")]
+		public BodyWeightTypeEnum? BodyWeightType {get;set;}
 
 
 		/// <summary>

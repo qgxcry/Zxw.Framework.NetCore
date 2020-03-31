@@ -16,7 +16,7 @@ namespace ZLHP.Enums
 	///             70，小学
 	///             ]
 	/// </summary>
-	public enum EducationalEnum:{ValType}
+	public enum EducationalEnum:byte
 	{
 		/// <summary>
 		/// 名称：研究生，值：0

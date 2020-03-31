@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【微信二维码】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【微信二维码ID】
 		/// </summary>
-		[Required]
-		public long QrCodeID {get;set;}
+		public long? QrCodeID {get;set;}
 
 
 		/// <summary>

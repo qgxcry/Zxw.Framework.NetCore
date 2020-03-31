@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【退款明细】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【退款明细ID】
 		/// </summary>
-		[Required]
-		public long RefundOrderItemID {get;set;}
+		public long? RefundOrderItemID {get;set;}
 
 
 		/// <summary>

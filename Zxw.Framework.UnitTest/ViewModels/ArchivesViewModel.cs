@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【产检档案】
@@ -14,8 +14,17 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【产检档案ID】
 		/// </summary>
-		[Required]
-		public long ArchiveID {get;set;}
+		public long? ArchiveID {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public virtual GestationRecordsViewModel GestationRecords {get;set;}
 
 
 		/// <summary>
@@ -35,17 +44,17 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【卡号】
+		/// </summary>
+		[MaxLength(50)]
+		public string CardNo {get;set;}
+
+
+		/// <summary>
 		/// 【孕妇编号】
 		/// </summary>
 		[MaxLength(50)]
 		public string UserNo {get;set;}
-
-
-		/// <summary>
-		/// 【医院卡号】
-		/// </summary>
-		[MaxLength(50)]
-		public string CardNo {get;set;}
 
 
 		/// <summary>
@@ -96,7 +105,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【身份证号】
+		/// 【证件号】
 		/// </summary>
 		[MaxLength(50)]
 		public string IDNumber {get;set;}
@@ -115,7 +124,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【预产期】
+		/// 【出生日期】
 		/// </summary>
 		public DateTime? BornDate {get;set;}
 
@@ -221,10 +230,10 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【现住乡镇】
+		/// 【休养省份】
 		/// </summary>
 		[MaxLength(50)]
-		public string Village {get;set;}
+		public string RestProvince {get;set;}
 
 
 		/// <summary>
@@ -242,10 +251,10 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【休养省份】
+		/// 【现住乡镇】
 		/// </summary>
 		[MaxLength(50)]
-		public string RestProvince {get;set;}
+		public string Village {get;set;}
 
 
 		/// <summary>
@@ -309,6 +318,20 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【户口乡镇】
+		/// </summary>
+		[MaxLength(50)]
+		public string RegVillage {get;set;}
+
+
+		/// <summary>
+		/// 【户口居委会】
+		/// </summary>
+		[MaxLength(50)]
+		public string RegCommunity {get;set;}
+
+
+		/// <summary>
 		/// 【户口省份】
 		/// </summary>
 		[MaxLength(50)]
@@ -327,20 +350,6 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[MaxLength(50)]
 		public string RegDistrict {get;set;}
-
-
-		/// <summary>
-		/// 【户口乡镇】
-		/// </summary>
-		[MaxLength(50)]
-		public string RegVillage {get;set;}
-
-
-		/// <summary>
-		/// 【户口居委会】
-		/// </summary>
-		[MaxLength(50)]
-		public string RegCommunity {get;set;}
 
 
 		/// <summary>
@@ -453,6 +462,13 @@ namespace ZLHP.Site.Models
 		///             ]
 		/// </summary>
 		public HusProfessionEnum? HusProfession {get;set;}
+
+
+		/// <summary>
+		/// 【丈夫单位】
+		/// </summary>
+		[MaxLength(50)]
+		public string HusEmployer {get;set;}
 
 
 		/// <summary>
@@ -591,7 +607,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【孕产史】
 		/// </summary>
-		[MaxLength(500)]
+		[MaxLength(1000)]
 		public string GestationHistory {get;set;}
 
 
@@ -684,15 +700,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【体重管理】
+		/// 【检查报告】
 		/// </summary>
-		public virtual ICollection<BodyWeightRecordsViewModel> BodyWeightRecords {get;set;}
-
-
-		/// <summary>
-		/// 【胎动记录】
-		/// </summary>
-		public virtual ICollection<FetalRecordsViewModel> FetalRecords {get;set;}
+		public virtual ICollection<CheckReportsViewModel> CheckReports {get;set;}
 
 
 		/// <summary>

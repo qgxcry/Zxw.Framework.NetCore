@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【行政区域】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【区域ID】
 		/// </summary>
 		[JsonProperty("区域ID")]
-		public int AreaID {get;set;}
+		public int? AreaID {get;set;}
 
 
 		/// <summary>

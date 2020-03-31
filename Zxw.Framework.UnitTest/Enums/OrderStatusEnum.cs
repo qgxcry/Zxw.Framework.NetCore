@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	///             2，已取消
 	///             3，支付失败]
 	/// </summary>
-	public enum OrderStatusEnum:{ValType}
+	public enum OrderStatusEnum:byte
 	{
 		/// <summary>
 		/// 名称：未支付，值：0

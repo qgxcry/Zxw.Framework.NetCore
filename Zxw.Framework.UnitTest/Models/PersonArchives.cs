@@ -5,13 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【个人档案】
 	/// </summary>
-	[Table("personarchives")]
-	public partial class personarchives:BaseEntity
+	[Table("PersonArchives")]
+	public partial class PersonArchives:BaseEntity
 	{
 		/// <summary>
 		/// 【个人档案ID】
@@ -64,7 +64,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【身份证号】
+		/// 【证件号】
 		/// </summary>
 		[MaxLength(50)]
 		public string IDNumber {get;set;}
@@ -316,6 +316,12 @@ namespace ZLHP.Site.Models
 		/// 【户口区域ID】
 		/// </summary>
 		public int? RegAreaID {get;set;}
+
+
+		/// <summary>
+		/// 【更新时间】
+		/// </summary>
+		public DateTime? UpdateTime {get;set;}
 
 
 		/// <summary>
@@ -582,7 +588,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【孕产史】
 		/// </summary>
-		[MaxLength(500)]
+		[MaxLength(1000)]
 		public string GestationHistory {get;set;}
 
 
@@ -652,9 +658,15 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【更新时间】
+		/// 【孕期记录】
 		/// </summary>
-		public DateTime? UpdateTime {get;set;}
+		public virtual ICollection<GestationRecords> GestationRecords {get;set;}
+
+
+		/// <summary>
+		/// 【产检档案】
+		/// </summary>
+		public virtual ICollection<Archives> Archives {get;set;}
 
 
 		/// <summary>
@@ -673,12 +685,6 @@ namespace ZLHP.Site.Models
 		/// 【月经史】
 		/// </summary>
 		public virtual ICollection<MenstrualHistories> MenstrualHistories {get;set;}
-
-
-		/// <summary>
-		/// 【产检档案】
-		/// </summary>
-		public virtual ICollection<Archives> Archives {get;set;}
 
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【微信模板】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【微信模板ID】
 		/// </summary>
 		[JsonProperty("微信模板ID")]
-		public int WeixinTemplateID {get;set;}
+		public int? WeixinTemplateID {get;set;}
 
 
 		/// <summary>

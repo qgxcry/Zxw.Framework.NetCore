@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【月经史】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【月经史ID】
 		/// </summary>
 		[JsonProperty("月经史ID")]
-		public long MenstrualHistoryID {get;set;}
+		public long? MenstrualHistoryID {get;set;}
 
 
 		/// <summary>

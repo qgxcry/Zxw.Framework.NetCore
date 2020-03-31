@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【产检记录】
@@ -19,6 +19,17 @@ namespace ZLHP.Site.Models
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public  long ArchiveRecordID {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		[ForeignKey("GestationRecordID")]
+		public virtual GestationRecords GestationRecords {get;set;}
 
 
 		/// <summary>
@@ -36,6 +47,12 @@ namespace ZLHP.Site.Models
 		/// 【站点ID】
 		/// </summary>
 		public int? SiteID {get;set;}
+
+
+		/// <summary>
+		/// 【用户ID】
+		/// </summary>
+		public int? UserID {get;set;}
 
 
 		/// <summary>
@@ -207,21 +224,21 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【总体评估】
+		/// 【高危异常描述】
 		/// </summary>
 		[MaxLength(2000)]
 		public string Diagnosis {get;set;}
 
 
 		/// <summary>
-		/// 【异常情况处理】
+		/// 【高危异常处置】
 		/// </summary>
 		[MaxLength(2000)]
 		public string Abnormal {get;set;}
 
 
 		/// <summary>
-		/// 【妊娠风险评估】1. 绿（低风险）、
+		/// 【妊娠风险评估等级】1. 绿（低风险）、
 		///             2. 黄（一般风险）、
 		///             3. 橙（较高风险）、
 		///             4. 红（高风险）、
@@ -232,7 +249,8 @@ namespace ZLHP.Site.Models
 		///             4，红
 		///             5，紫]
 		/// </summary>
-		public RiskLevelEnum? RiskLevel {get;set;}
+		[MaxLength(50)]
+		public string RiskLevel {get;set;}
 
 
 		/// <summary>
@@ -243,7 +261,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【卫生指导】
+		/// 【保健指导】
 		/// </summary>
 		[MaxLength(65535)]
 		public string HealthGuidance {get;set;}
@@ -333,6 +351,12 @@ namespace ZLHP.Site.Models
 		/// 【是否启用】
 		/// </summary>
 		public byte? IsEnabled {get;set;}
+
+
+		/// <summary>
+		/// 【检查报告】
+		/// </summary>
+		public virtual ICollection<CheckReports> CheckReports {get;set;}
 
 
 		/// <summary>

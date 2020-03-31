@@ -7,7 +7,7 @@ namespace ZLHP.Enums
 	/// 【预约类型】[1，当日
 	///             2，预约]
 	/// </summary>
-	public enum RegistrationTypeEnum:{ValType}
+	public enum RegistrationTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：当日，值：1

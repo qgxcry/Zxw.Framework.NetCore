@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【孕产史】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【孕产史ID】
 		/// </summary>
-		[Required]
-		public long GestationHistoryID {get;set;}
+		public long? GestationHistoryID {get;set;}
 
 
 		/// <summary>

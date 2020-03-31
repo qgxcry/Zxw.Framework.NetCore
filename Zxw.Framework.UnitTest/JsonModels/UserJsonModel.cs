@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【注册用户】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【用户ID】
 		/// </summary>
 		[JsonProperty("用户ID")]
-		public int UserID {get;set;}
+		public int? UserID {get;set;}
 
 
 		/// <summary>

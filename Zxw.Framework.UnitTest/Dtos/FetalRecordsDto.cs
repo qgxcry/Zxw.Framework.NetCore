@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【胎动记录】
@@ -10,19 +10,19 @@ namespace ZLHP.Site.Models
 	public partial class FetalRecordsDto
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【胎动记录ID】
 		/// </summary>
-		public long FetalRecordID {get;set;}
+		public long? FetalRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public long? ArchiveID {get;set;}
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public virtual ArchivesDto Archives {get;set;}
+		public virtual GestationRecordsDto GestationRecords {get;set;}
 
 
 		/// <summary>

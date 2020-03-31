@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【产检记录】
@@ -14,7 +14,18 @@ namespace ZLHP.Site.Models
 		/// 【产检记录ID】
 		/// </summary>
 		[JsonProperty("产检记录ID")]
-		public long ArchiveRecordID {get;set;}
+		public long? ArchiveRecordID {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		[JsonProperty("孕期记录ID")]
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public virtual GestationRecordsJsonModel GestationRecords {get;set;}
 
 
 		/// <summary>
@@ -33,6 +44,13 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("站点ID")]
 		public int? SiteID {get;set;}
+
+
+		/// <summary>
+		/// 【用户ID】
+		/// </summary>
+		[JsonProperty("用户ID")]
+		public int? UserID {get;set;}
 
 
 		/// <summary>
@@ -219,21 +237,21 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【总体评估】
+		/// 【高危异常描述】
 		/// </summary>
-		[JsonProperty("总体评估")]
+		[JsonProperty("高危异常描述")]
 		public string Diagnosis {get;set;}
 
 
 		/// <summary>
-		/// 【异常情况处理】
+		/// 【高危异常处置】
 		/// </summary>
-		[JsonProperty("异常情况处理")]
+		[JsonProperty("高危异常处置")]
 		public string Abnormal {get;set;}
 
 
 		/// <summary>
-		/// 【妊娠风险评估】1. 绿（低风险）、
+		/// 【妊娠风险评估等级】1. 绿（低风险）、
 		///             2. 黄（一般风险）、
 		///             3. 橙（较高风险）、
 		///             4. 红（高风险）、
@@ -244,8 +262,8 @@ namespace ZLHP.Site.Models
 		///             4，红
 		///             5，紫]
 		/// </summary>
-		[JsonProperty("妊娠风险评估")]
-		public RiskLevelEnum? RiskLevel {get;set;}
+		[JsonProperty("妊娠风险评估等级")]
+		public string RiskLevel {get;set;}
 
 
 		/// <summary>
@@ -256,9 +274,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【卫生指导】
+		/// 【保健指导】
 		/// </summary>
-		[JsonProperty("卫生指导")]
+		[JsonProperty("保健指导")]
 		public string HealthGuidance {get;set;}
 
 
@@ -355,6 +373,12 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[JsonProperty("是否启用")]
 		public byte? IsEnabled {get;set;}
+
+
+		/// <summary>
+		/// 【检查报告】
+		/// </summary>
+		public virtual ICollection<CheckReportsJsonModel> CheckReports {get;set;}
 
 
 		/// <summary>

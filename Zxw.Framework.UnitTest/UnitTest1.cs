@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
@@ -115,7 +116,7 @@ namespace Zxw.Framework.UnitTest
         public void TestGenerateEntitiesForMySql()
         {
             BuildServiceFoMySql();
-            CodeGenerator.GenerateAllCodesFromDatabase(true);
+            CodeGenerator.GenerateAllCodesFromDatabase(false, true);
         }
 
         #endregion Test methods for MySQL
@@ -201,8 +202,11 @@ namespace Zxw.Framework.UnitTest
             services = RegisterMySqlContext(services);
             services.Configure<CodeGenerateOption>(options =>
             {
-                options.OutputPath = "D:\\EFCore\\MySModelQL";
-                options.ModelsNamespace = "ZLHP.Site.Models";
+                options.OutputPath = "D:\\ZLSoft\\Project\\ZLHP\\Source\\ZLHP";
+                //    options.OutputPath = "D:\\ZLSoft\\TempProject";
+                options.GroupName = "Hospital"; // 指定特定模块，需要在table的comment加模块字符串，如：[Site]
+                //options.Tables = new List<string> { "TipConfigs", "TipTypes" }; // 指定特定表
+                options.ModelsNamespace = "ZLHP.Hospital.Models";
                 options.EnumsNamespace = "ZLHP.Enums";
                 options.DtosNamespace = "ZLHP.Hospital.Contract.Dtos";
                 options.JsonModelsNamespace = "ZLHP.DataCenter.Apis.Models";
@@ -270,7 +274,9 @@ namespace Zxw.Framework.UnitTest
             services.Configure<DbContextOption>(options =>
             {
                 options.ConnectionString =
-                    "server=localhost;port=3306;database=ZLHPDB;user id=root;password=123456;SslMode=none;pooling=true;";
+                    "server=192.168.31.210;port=3306;database=ZLHPDB;user id=root;password=123456;SslMode=none;pooling=true;";
+                //options.ConnectionString =
+                //    "server=localhost;port=3306;database=ZLHPDB;user id=root;password=123456;SslMode=none;pooling=true;";
                 //options.ModelAssemblyName = "Zxw.Framework.Website.Models";
             });
             services.AddScoped<IDbContextCore, MySqlDbContext>(); //注入EF上下文

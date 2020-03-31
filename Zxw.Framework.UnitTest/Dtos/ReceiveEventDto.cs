@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【事件推送】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【事件推送ID】
 		/// </summary>
-		public long ReceiveEventID {get;set;}
+		public long? ReceiveEventID {get;set;}
 
 
 		/// <summary>

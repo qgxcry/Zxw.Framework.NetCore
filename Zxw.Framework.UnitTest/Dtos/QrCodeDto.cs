@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【微信二维码】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【微信二维码ID】
 		/// </summary>
-		public long QrCodeID {get;set;}
+		public long? QrCodeID {get;set;}
 
 
 		/// <summary>

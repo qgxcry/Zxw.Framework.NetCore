@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【检查报告】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【检查报告ID】
 		/// </summary>
-		public long CheckReportID {get;set;}
+		public long? CheckReportID {get;set;}
 
 
 		/// <summary>

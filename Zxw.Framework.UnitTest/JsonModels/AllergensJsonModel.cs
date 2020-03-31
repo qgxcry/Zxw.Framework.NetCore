@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【过敏源ID】
 		/// </summary>
 		[JsonProperty("过敏源ID")]
-		public int AllergenID {get;set;}
+		public int? AllergenID {get;set;}
 
 
 		/// <summary>

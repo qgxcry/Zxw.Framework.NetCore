@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【退款明细】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【退款明细ID】
 		/// </summary>
-		public long RefundOrderItemID {get;set;}
+		public long? RefundOrderItemID {get;set;}
 
 
 		/// <summary>

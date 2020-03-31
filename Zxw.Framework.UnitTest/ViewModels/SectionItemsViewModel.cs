@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【栏目配置项】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【栏目配置项ID】
 		/// </summary>
-		[Required]
-		public int SectionItemID {get;set;}
+		public int? SectionItemID {get;set;}
 
 
 		/// <summary>

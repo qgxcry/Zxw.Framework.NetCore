@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             1，支付宝
 	///             2，其他]
 	/// </summary>
-	public enum BillModelEnum:{ValType}
+	public enum BillModelEnum:byte
 	{
 		/// <summary>
 		/// 名称：微信，值：0

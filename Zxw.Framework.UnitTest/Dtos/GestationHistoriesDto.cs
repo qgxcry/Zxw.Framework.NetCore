@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【孕产史】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【孕产史ID】
 		/// </summary>
-		public long GestationHistoryID {get;set;}
+		public long? GestationHistoryID {get;set;}
 
 
 		/// <summary>

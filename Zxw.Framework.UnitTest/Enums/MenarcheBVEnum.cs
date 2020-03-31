@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             2，中
 	///             3，少]
 	/// </summary>
-	public enum MenarcheBVEnum:{ValType}
+	public enum MenarcheBVEnum:byte
 	{
 		/// <summary>
 		/// 名称：多，值：1

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【产检档案】
@@ -12,7 +12,17 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【产检档案ID】
 		/// </summary>
-		public long ArchiveID {get;set;}
+		public long? ArchiveID {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public virtual GestationRecordsDto GestationRecords {get;set;}
 
 
 		/// <summary>
@@ -32,15 +42,15 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【孕妇编号】
+		/// 【卡号】
 		/// </summary>
-		public string UserNo {get;set;}
+		public string CardNo {get;set;}
 
 
 		/// <summary>
-		/// 【医院卡号】
+		/// 【孕妇编号】
 		/// </summary>
-		public string CardNo {get;set;}
+		public string UserNo {get;set;}
 
 
 		/// <summary>
@@ -87,7 +97,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【身份证号】
+		/// 【证件号】
 		/// </summary>
 		public string IDNumber {get;set;}
 
@@ -105,7 +115,7 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【预产期】
+		/// 【出生日期】
 		/// </summary>
 		public DateTime? BornDate {get;set;}
 
@@ -205,9 +215,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【现住乡镇】
+		/// 【休养省份】
 		/// </summary>
-		public string Village {get;set;}
+		public string RestProvince {get;set;}
 
 
 		/// <summary>
@@ -223,9 +233,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【休养省份】
+		/// 【现住乡镇】
 		/// </summary>
-		public string RestProvince {get;set;}
+		public string Village {get;set;}
 
 
 		/// <summary>
@@ -283,6 +293,18 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
+		/// 【户口乡镇】
+		/// </summary>
+		public string RegVillage {get;set;}
+
+
+		/// <summary>
+		/// 【户口居委会】
+		/// </summary>
+		public string RegCommunity {get;set;}
+
+
+		/// <summary>
 		/// 【户口省份】
 		/// </summary>
 		public string RegProvince {get;set;}
@@ -298,18 +320,6 @@ namespace ZLHP.Site.Models
 		/// 【户口区县】
 		/// </summary>
 		public string RegDistrict {get;set;}
-
-
-		/// <summary>
-		/// 【户口乡镇】
-		/// </summary>
-		public string RegVillage {get;set;}
-
-
-		/// <summary>
-		/// 【户口居委会】
-		/// </summary>
-		public string RegCommunity {get;set;}
 
 
 		/// <summary>
@@ -416,6 +426,12 @@ namespace ZLHP.Site.Models
 		///             ]
 		/// </summary>
 		public HusProfessionEnum? HusProfession {get;set;}
+
+
+		/// <summary>
+		/// 【丈夫单位】
+		/// </summary>
+		public string HusEmployer {get;set;}
 
 
 		/// <summary>
@@ -632,15 +648,9 @@ namespace ZLHP.Site.Models
 
 
 		/// <summary>
-		/// 【体重管理】
+		/// 【检查报告】
 		/// </summary>
-		public virtual ICollection<BodyWeightRecordsDto> BodyWeightRecords {get;set;}
-
-
-		/// <summary>
-		/// 【胎动记录】
-		/// </summary>
-		public virtual ICollection<FetalRecordsDto> FetalRecords {get;set;}
+		public virtual ICollection<CheckReportsDto> CheckReports {get;set;}
 
 
 		/// <summary>

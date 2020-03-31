@@ -16,7 +16,7 @@ namespace ZLHP.Enums
 	///             ]
 	///             
 	/// </summary>
-	public enum SurgeryHistoryEnum:{ValType}
+	public enum SurgeryHistoryEnum:string
 	{
 		/// <summary>
 		/// 名称：无，值：0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【手机短信验证】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【短信验证ID】
 		/// </summary>
 		[JsonProperty("短信验证ID")]
-		public long SMSVerifyCodeID {get;set;}
+		public long? SMSVerifyCodeID {get;set;}
 
 
 		/// <summary>

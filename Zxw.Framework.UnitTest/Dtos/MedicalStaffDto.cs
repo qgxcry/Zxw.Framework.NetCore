@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【医务人员】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【医务人员ID】
 		/// </summary>
-		public int MedicalStaffID {get;set;}
+		public int? MedicalStaffID {get;set;}
 
 
 		/// <summary>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【体重管理】
@@ -12,20 +12,29 @@ namespace ZLHP.Site.Models
 	public partial class BodyWeightRecordsViewModel
 	{
 		/// <summary>
-		/// 【ID】
+		/// 【体重记录ID】
 		/// </summary>
-		[Required]
-		public long BodyWeightRecordID {get;set;}
+		public long? BodyWeightRecordID {get;set;}
 
 
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public long? ArchiveID {get;set;}
+		public long? GestationRecordID {get;set;}
 		/// <summary>
-		/// 【产检档案ID】
+		/// 【孕期记录ID】
 		/// </summary>
-		public virtual ArchivesViewModel Archives {get;set;}
+		public virtual GestationRecordsViewModel GestationRecords {get;set;}
+
+
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		public long? BodyWeightTypeID {get;set;}
+		/// <summary>
+		/// 【孕期体重增长类型ID】
+		/// </summary>
+		public virtual BodyWeightLimitTypeViewModel BodyWeightLimitType {get;set;}
 
 
 		/// <summary>
@@ -38,6 +47,15 @@ namespace ZLHP.Site.Models
 		/// 【孕周】
 		/// </summary>
 		public int? Week {get;set;}
+
+
+		/// <summary>
+		/// 【体重类型】[0，体重过轻
+		///             1，体重正常
+		///             2，体重超重
+		///             3，体重肥胖]
+		/// </summary>
+		public BodyWeightTypeEnum? BodyWeightType {get;set;}
 
 
 		/// <summary>

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【订单明细】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【订单明细ID】
 		/// </summary>
-		[Required]
-		public long OrderItemID {get;set;}
+		public long? OrderItemID {get;set;}
 
 
 		/// <summary>

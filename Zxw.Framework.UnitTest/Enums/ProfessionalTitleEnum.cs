@@ -12,7 +12,7 @@ namespace ZLHP.Enums
 	///             5，主任医师
 	///             ]
 	/// </summary>
-	public enum ProfessionalTitleEnum:{ValType}
+	public enum ProfessionalTitleEnum:byte
 	{
 		/// <summary>
 		/// 名称：无，值：0

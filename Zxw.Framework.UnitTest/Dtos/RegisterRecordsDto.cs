@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【预约记录】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【预约记录ID】
 		/// </summary>
-		public long RegisterRecordID {get;set;}
+		public long? RegisterRecordID {get;set;}
 
 
 		/// <summary>

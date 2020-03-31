@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【手机短信验证】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【短信验证ID】
 		/// </summary>
-		[Required]
-		public long SMSVerifyCodeID {get;set;}
+		public long? SMSVerifyCodeID {get;set;}
 
 
 		/// <summary>

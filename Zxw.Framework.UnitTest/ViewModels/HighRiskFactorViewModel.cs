@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【高危因素】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【高危因素ID】
 		/// </summary>
-		[Required]
-		public long HighRiskFactorID {get;set;}
+		public long? HighRiskFactorID {get;set;}
 
 
 		/// <summary>
@@ -43,6 +42,12 @@ namespace ZLHP.Site.Models
 		/// 【上级ID】
 		/// </summary>
 		public long? ParentID {get;set;}
+
+
+		/// <summary>
+		/// 【是否可选】
+		/// </summary>
+		public byte? IsSelect {get;set;}
 
 
 		/// <summary>

@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	///             2，下午
 	///             3，晚上]
 	/// </summary>
-	public enum TimeIntervalTypeEnum:{ValType}
+	public enum TimeIntervalTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：凌晨，值：0

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【高危因素】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【高危因素ID】
 		/// </summary>
-		public long HighRiskFactorID {get;set;}
+		public long? HighRiskFactorID {get;set;}
 
 
 		/// <summary>
@@ -37,6 +37,12 @@ namespace ZLHP.Site.Models
 		/// 【上级ID】
 		/// </summary>
 		public long? ParentID {get;set;}
+
+
+		/// <summary>
+		/// 【是否可选】
+		/// </summary>
+		public byte? IsSelect {get;set;}
 
 
 		/// <summary>

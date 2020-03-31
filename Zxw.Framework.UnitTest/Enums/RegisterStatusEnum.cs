@@ -8,7 +8,7 @@ namespace ZLHP.Enums
 	///             1，已预约
 	///             2，已取消]
 	/// </summary>
-	public enum RegisterStatusEnum:{ValType}
+	public enum RegisterStatusEnum:byte
 	{
 		/// <summary>
 		/// 名称：待支付，值：0

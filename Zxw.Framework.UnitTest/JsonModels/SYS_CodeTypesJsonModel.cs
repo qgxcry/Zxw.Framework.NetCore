@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【代码类别】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【代码类别ID】
 		/// </summary>
 		[JsonProperty("代码类别ID")]
-		public int CodeTypeID {get;set;}
+		public int? CodeTypeID {get;set;}
 
 
 		/// <summary>

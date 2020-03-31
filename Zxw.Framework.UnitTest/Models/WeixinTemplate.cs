@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【微信模板】

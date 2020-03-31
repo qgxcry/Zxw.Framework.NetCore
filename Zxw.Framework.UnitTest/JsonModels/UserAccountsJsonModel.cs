@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.DataCenter.Apis.Models
 {
 	/// <summary>
 	/// 【绑定账号】
@@ -14,7 +14,7 @@ namespace ZLHP.Site.Models
 		/// 【绑定账号ID】
 		/// </summary>
 		[JsonProperty("绑定账号ID")]
-		public int UserAccountsID {get;set;}
+		public int? UserAccountsID {get;set;}
 
 
 		/// <summary>

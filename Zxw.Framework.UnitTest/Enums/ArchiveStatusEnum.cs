@@ -11,7 +11,7 @@ namespace ZLHP.Enums
 	///             ]
 	///             
 	/// </summary>
-	public enum ArchiveStatusEnum:{ValType}
+	public enum ArchiveStatusEnum:byte
 	{
 		/// <summary>
 		/// 名称：已建档，值：0

@@ -9,7 +9,7 @@ namespace ZLHP.Enums
 	///             10，微信
 	///             20，短信]
 	/// </summary>
-	public enum SendTypeEnum:{ValType}
+	public enum SendTypeEnum:byte
 	{
 		/// <summary>
 		/// 名称：短信微信，值：0

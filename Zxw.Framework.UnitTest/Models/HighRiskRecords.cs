@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.EFCore;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Models
 {
 	/// <summary>
 	/// 【高危因素记录】
@@ -29,6 +29,17 @@ namespace ZLHP.Site.Models
 		/// </summary>
 		[ForeignKey("HighRiskFactorID")]
 		public virtual HighRiskFactor HighRiskFactor {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		[ForeignKey("GestationRecordID")]
+		public virtual GestationRecords GestationRecords {get;set;}
 
 
 		/// <summary>

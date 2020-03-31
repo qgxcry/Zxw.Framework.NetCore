@@ -392,7 +392,7 @@ namespace Zxw.Framework.NetCore.CodeGenerator
             var listEnums = new Dictionary<string, string>();
             foreach (var col in columnEnums)
             {
-                GenerateEnum(col, listEnums, coveredSGC);
+                GenerateEnum(col, listEnums, ifExsitedCovered);
             }
 
             #endregion 获取Comment枚举 格式用[枚举代码，枚举值]包裹枚举值,每行代表一个枚举类型

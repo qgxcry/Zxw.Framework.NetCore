@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		public string pin_yin_ {get;set;}
 
 
-		public int code_ {get;set;}
+		public int? code_ {get;set;}
 
 
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【高危因素记录】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【ID】
 		/// </summary>
-		[Required]
-		public long HighRiskRecordID {get;set;}
+		public long? HighRiskRecordID {get;set;}
 
 
 		/// <summary>
@@ -26,6 +25,16 @@ namespace ZLHP.Site.Models
 		/// 【高危因素ID】
 		/// </summary>
 		public virtual HighRiskFactorViewModel HighRiskFactor {get;set;}
+
+
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public long? GestationRecordID {get;set;}
+		/// <summary>
+		/// 【孕期记录ID】
+		/// </summary>
+		public virtual GestationRecordsViewModel GestationRecords {get;set;}
 
 
 		/// <summary>

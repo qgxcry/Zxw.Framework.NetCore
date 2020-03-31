@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.CheckReport.Contract.Dtos
 {
 	/// <summary>
 	/// 【月经史】
@@ -12,7 +12,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【月经史ID】
 		/// </summary>
-		public long MenstrualHistoryID {get;set;}
+		public long? MenstrualHistoryID {get;set;}
 
 
 		/// <summary>

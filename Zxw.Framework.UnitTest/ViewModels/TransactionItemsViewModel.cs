@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using ZLHP.Enums;
 
-namespace ZLHP.Site.Models
+namespace ZLHP.Web.Models
 {
 	/// <summary>
 	/// 【交易明细】
@@ -14,8 +14,7 @@ namespace ZLHP.Site.Models
 		/// <summary>
 		/// 【交易明细ID】
 		/// </summary>
-		[Required]
-		public long TransactionItemID {get;set;}
+		public long? TransactionItemID {get;set;}
 
 
 		/// <summary>
